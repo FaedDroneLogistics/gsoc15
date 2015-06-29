@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <form class="col s12" method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="name" type="text" class="validate">
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <textarea id="description" class="materialize-textarea"></textarea>
+                    <label for="description">Description</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="latitude" type="number" step="any" class="validate">
+                    <label for="latitude">Latitude</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="longitude" type="number" step="any" class="validate">
+                    <label for="longitude">Longitude</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="altitude" type="number" step="any" min="0" class="validate">
+                    <label for="altitude">Altitude</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="is_available" type="checkbox" class="validate">
+                    <label for="is_available">Availability</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select id="style_url" class="browser-default">
+                        <option value="" disabled selected>Choose Style</option>
+                        {% for x,y in form.fields.style_url.choices %}
+                            <option value="{{ x }}" {% if form.fields.style_url.value == x %} selected{% endif %}>{{ y }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <a href="/"><input type="submit" value="Send" class="btn btn-default"/></a>
+        </form>
+    </div>
+{% endblock content %}

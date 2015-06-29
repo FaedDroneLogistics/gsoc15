@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <form class="col s12" method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="plate" type="text" class="validate">
+                    <label for="plate">Drone Plate</label>
+                </div>
+            </div>
+            <a href="/"><input type="submit" value="Send" class="btn btn-default"/></a>
+        </form>
+    </div>
+{% endblock content %}
