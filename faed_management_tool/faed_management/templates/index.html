@@ -1,7 +1,23 @@
-<html>
-    <head>
-    </head>
-    <body>
-        <p>Testing main.html</p>
-    </body>
-</html>
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+
+
+	<div class="fixed-action-btn" style="top: 60px; right: 25px;">
+    	<a class="btn-floating btn-large red">
+    	  <i class="large material-icons">perm_media</i>
+   		</a>
+    <ul>
+      <li><a class="btn-floating waves-effect waves-light yellow darken-1"><i class="material-icons">navigation</i></a></li>
+      <li class="test"><a class="btn-floating waves-effect waves-light green test"><i class="material-icons">swap_vert</i></a></li>
+      <li><a class="btn-floating  waves-effect waves-lightblue"><i class="material-icons">language</i></a></li>
+    </ul>
+  </div>
+    <div id="map-canvas"></div>
+
+
+{% endblock content %}
