@@ -25,6 +25,7 @@ class Drone(models.Model):
     origin_lon = models.FloatField()
     destination_lat = models.FloatField()
     destination_lon = models.FloatField()
+    style_url = models.ForeignKey(StyleURL)
 
     def __unicode__(self):
         return str(self.plate)
@@ -54,6 +55,9 @@ class MeteoStation(models.Model):
     style_url = models.ForeignKey(StyleURL)
     temperature = models.FloatField()
     wind_speed = models.FloatField()
+
+    def __unicode__(self):
+        return str(self.name)
 
 
 

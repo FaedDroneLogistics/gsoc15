@@ -22,6 +22,11 @@ class DropPointForm(forms.Form):
 
 class DroneForm(forms.Form):
     plate = forms.TextInput()
+    style_url = forms.ChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        super(DroneForm, self).__init__(*args, **kwargs)
+        self.fields['style_url'].choices = [(style.id, style.href) for style in models.StyleURL.objects.all()]
 
 class HangarForm(forms.Form):
     name = forms.TextInput()
@@ -37,6 +42,7 @@ class HangarForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(HangarForm, self).__init__(*args, **kwargs)
         self.fields['drone'].choices = [(drone.id, drone.plate) for drone in models.Drone.objects.all()]
+        self.fields['style_url'].choices = [(style.id, style.href) for style in models.StyleURL.objects.all()]
 
 class MeteoStationForm(forms.Form):
     name = forms.TextInput()
@@ -47,3 +53,8 @@ class MeteoStationForm(forms.Form):
     is_available = forms.BooleanField()
     temperature = forms.FloatField()
     wind_speed = forms.FloatField()
+    style_url = forms.ChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        super(MeteoStationForm, self).__init__(*args, **kwargs)
+        self.fields['style_url'].choices = [(style.id, style.href) for style in models.StyleURL.objects.all()]

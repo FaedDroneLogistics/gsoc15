@@ -10,6 +10,17 @@
                     <label for="plate">Drone Plate</label>
                 </div>
             </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select id="style_url" class="browser-default">
+                        <option value="" disabled selected>Choose Style</option>
+                        {% for x,y in form.fields.style_url.choices %}
+                            <option value="{{ x }}" {% if form.fields.style_url.value == x %} selected{% endif %}>{{ y }}</option>
+                        {% endfor %}
+                    </select>
+                    <a class="material-icons" href="/styleurlform" target="_blank">add</a>
+                </div>
+            </div>
             <a href="/"><input type="submit" value="Send" class="btn btn-default"/></a>
         </form>
     </div>
