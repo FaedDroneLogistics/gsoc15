@@ -1,14 +1,144 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <title>FAED Project</title>
-    </head>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <!--Import materialize.css -->
+    <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/static/css/style.css" media="screen,projection"/>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/static/js/drones.js"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>FAED</title>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
+    <script>
+// This example creates circles on the map, representing
+// radiuss in North America.
+
+var map;
+var image1 = {
+    url: '/static/img/faeddrone100x100.png',
+    // This marker is 20 pixels wide by 32 pixels tall.
+    size: new google.maps.Size(100, 100),
+    // The origin for this image is 0,0.
+    origin: new google.maps.Point(0,0),
+    // The anchor for this image is the base of the flagpole at 0,32.
+    anchor: new google.maps.Point(50, 50)
+  };
+
+var markers = [];
+
+
+var hangars = {};
+var droppoints = {};
+
+hangars = loadHangars();
+droppoints = loadDroppoints();
+
+
+var cityCircle;
+
+
+function initialize() {
+
+  // Create the map.
+  var mapOptions = {
+    zoom: 15,
+    center: new google.maps.LatLng(41.617147, 0.624870),
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+
+	map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  // Construct the circle for each value in hangar.
+  // Note: We scale the area of the circle based on the radius.
+  for (var city in hangars) {
+  /*
+  var marker = new google.maps.Marker({
+      position: hangar[city].center,
+      map: map,
+      icon: image
+  });
+  */
+
+  addMarker(hangars[city].center, map, image1);
+
+    var radiusOptions = {
+      strokeColor: '#ff9100',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#ff9100',
+      fillOpacity: 0.5,
+      map: map,
+      center: hangars[city].center,
+      radius: Math.sqrt(hangars[city].radius) * 100
+    };
+    // Add the circle for this city to the map.
+    cityCircle = new google.maps.Circle(radiusOptions);
+  }
+
+  for (var point in droppoints) {
+
+  addMarker(droppoints[point].center, map);
+  }
+
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+      <script>
+   			$(document).ready(function(){
+      	 // Initialize collapse button
+ 		 $(".button-collapse").sideNav();
+ 		 // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+ 		 //$('.collapsible').collapsible();
+
+
+ 	 $('.test').on('click', function(){
+
+        var $el = $(this);
+        var isSelected = $el.attr('data-selected');
+
+        if( isSelected != 'true' ){
+        clearMarkers()
+            $el.attr('data-selected', true)
+        }else{
+        showMarkers();
+            $el.attr('data-selected', false)
+        }
+
+    })
+
+    });
+
+
+
+    </script>
+  </head>
 
     <body>
+         <nav>
+		<ul id="slide-out" class="side-nav">
+    		<li><a href="/hangarform">Drones</a></li>
+    		<li><a href="/hangarform">DropPoints</a></li>
+			<li><a href="/hangarform">Stations</a></li>
+		</ul>
+		<a href="#"  data-activates="slide-out" class="button-collapse  show-on-large"><i class="mdi-navigation-menu"></i></a>
+	</nav>
         {% block content %}
         {% endblock content %}
     </body>
