@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from faed_management.views import HangarFormView, DroneFormView, DropPointFormView, StyleURLFormView, MeteoStationFormView
+from faed_management.views import HangarFormView, Hangars DroneFormView, DropPointFormView, StyleURLFormView, MeteoStationFormView
 from django.views.generic.base import TemplateView
 from rest_framework import routers
 
@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^droppointform/$', DropPointFormView.as_view()),
     url(r'^droneform/$', DroneFormView.as_view()),
     url(r'^hangarform/$', HangarFormView.as_view()),
+    url(r'^hangars/$', HangarsView.as_view()),
     url(r'^meteostationform/$', MeteoStationFormView.as_view()),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
