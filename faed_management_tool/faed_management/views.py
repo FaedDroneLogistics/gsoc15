@@ -1,5 +1,5 @@
 import forms, models
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from rest_framework import viewsets
 from serializers import HangarSerializer, DropPointSerializer,MeteoStationSerializer
 
@@ -8,6 +8,12 @@ from serializers import HangarSerializer, DropPointSerializer,MeteoStationSerial
 #    context_object_name = 'points'
 #    template_name = 'point_list.html'
 #    queryset = models.Point.objects.all()
+
+
+class HangarsView(ListView):
+    template_name = 'hangars_list'
+    context_object_name = 'hangar'
+    queryset = models.Hangar.objects.all()
 
 class DroneFormView(FormView):
     template_name = 'drone_form.html'
