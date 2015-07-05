@@ -9,43 +9,34 @@
                     <input id="name" type="text" class="validate">
                     <label for="name">Name</label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <textarea id="description" class="materialize-textarea"></textarea>
-                    <label for="description">Description</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="latitude" type="number" step="any" class="validate">
-                    <label for="latitude">Latitude</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="longitude" type="number" step="any" class="validate">
-                    <label for="longitude">Longitude</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="altitude" type="number" step="any" min="0" class="validate">
-                    <label for="altitude">Altitude</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="radius" type="number" step="any" min="0" class="validate">
-                    <label for="radius">Radius of influence</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
+                 <div class="input-field col s6">
                     <input id="is_available" type="checkbox" class="validate">
                     <label for="is_available">Availability</label>
                 </div>
             </div>
+            <div class="row">
+                <div class="input-field col s3">
+                    <input id="latitude" type="number" step="any" class="validate">
+                    <label for="latitude">Latitude</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <input id="longitude" type="number" step="any" class="validate">
+                    <label for="longitude">Longitude</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <input id="altitude" type="number" step="any" min="0" class="validate">
+                    <label for="altitude">Altitude</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <input id="radius" type="number" step="any" min="0" class="validate">
+                    <label for="radius">Radius</label>
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="input-field col s6">
                     <select id="drone" class="browser-default">
@@ -56,8 +47,7 @@
                     </select>
                     <a class="material-icons" href="/droneform" target="_blank">add</a>
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="input-field col s6">
                     <select id="style_url" class="browser-default">
                         <option value="" disabled selected>Choose Style</option>
@@ -68,7 +58,18 @@
                     <a class="material-icons" href="/styleurlform" target="_blank">add</a>
                 </div>
             </div>
+            <div class="row">
+
+                <div class="input-field col s6">
+                    <textarea id="description" class="materialize-textarea"></textarea>
+                    <label for="description">Description</label>
+                </div>
             <a href="/"><input type="submit" value="Send" class="btn btn-default"/></a>
+
+
+
+            </div>
+
         </form>
     </div>
 {% endblock content %}
