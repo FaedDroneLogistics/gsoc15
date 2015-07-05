@@ -3,21 +3,83 @@
 
 {% block content %}
 
+ <h2>Hangars</h2>
+<div class="row">
+
+        {% for hangar in object_list %}
+    <div class="col s3">
+ <div class="card">
+
+            <div class="card-content">
+                              <img class="activator" src="http://vignette1.wikia.nocookie.net/zelda/images/2/23/Pikachu_colored_by_puppet_sasori-d56ia33.png/revision/latest?cb=20130902233824&path-prefix=es" style="width:20%; height:20%">
+
+              <h3 class="activator grey-text text-darken-4">{{ hangar.name }}<i class="material-icons right">more_vert</i></h3>
+              <p><strong>RADIUS:</strong> {{ hangar.radius }}</p>
+                <p>STATUS: {{hangar.is_available }}</p>
+                <p>DRONE: {{hangar.drone }}</p>
+
+
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Drones<i class="material-icons right">close</i></span>
+              <p>Aqui hi haurà informació dels drons que té associat.</p>
+                  <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">mode_edit</i></a>
+                    <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">delete</i></a>
+
+            </div>
+
+     </div>
+</div>
+
+        {% endfor %}
 
 
 
 
-	<div class="fixed-action-btn" style="top: 60px; right: 25px;">
-    	<a class="btn-floating btn-large red">
-    	  <i class="large material-icons">perm_media</i>
-   		</a>
-    <ul>
-      <li><a class="btn-floating waves-effect waves-light yellow darken-1"><i class="material-icons">navigation</i></a></li>
-      <li class="test"><a class="btn-floating waves-effect waves-light green test"><i class="material-icons">swap_vert</i></a></li>
-      <li><a class="btn-floating  waves-effect waves-lightblue"><i class="material-icons">language</i></a></li>
-    </ul>
+<div class="col s3">
+    <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Card Title"<i class="material-icons right">more_vert</i></span>
+              <p><a href="#">This is a link</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Drones<i class="material-icons right">close</i></span>
+              <p>Aqui hi haurà informació dels drons que té associat.</p>
+            </div>
+    </div>
+</div>
+<div class="col s3">
+    <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Card Title"<i class="material-icons right">more_vert</i></span>
+              <p><a href="#">This is a link</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+    </div>
+</div>
+
+
+
+        </div>
+
+
+  <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light red" href="/hangarform">
+      <i class="large material-icons">add</i>
+    </a>
+
   </div>
-    <div id="map-canvas"></div>
+
+
 
 
 {% endblock content %}

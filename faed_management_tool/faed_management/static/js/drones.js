@@ -33,32 +33,26 @@ function loadHangars(){
 
 var hangar = {}
 
-// First, create an object containing LatLng and radius for each city.
-hangar['Cappont'] = {
-  center: new google.maps.LatLng(41.608893, 0.624216),
-  radius: 30
-};
-hangar['La Bordeta'] = {
-  center: new google.maps.LatLng(41.602848,  0.640035),
-  radius: 25
-};
-hangar['Balafia'] = {
-  center: new google.maps.LatLng(41.630424, 0.627139),
-  radius: 40
-};
-hangar['Pardinyes'] = {
-  center: new google.maps.LatLng(41.623816, 0.636538),
-  radius: 50
-};
-hangar['Templers'] = {
-  center: new google.maps.LatLng(41.610229, 0.608600),
-  radius: 30
-};
-hangar['Centre històric'] = {
-  center: new google.maps.LatLng(41.617147, 0.624870),
-  radius: 30
+var url = "http://localhost:8000/api/hangars/?format=json";
+
+$.getJSON( url, function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+
+    if (key == "results"){
+      var results = val;
+    $.each( results, function (key,val){
+        hangar[val.id] = {
+  center: new google.maps.LatLng(val.latitude, val.longitude),
+  radius: val.radius
 };
 
+    })
+    }
+  });
+
+});
+console.log(hangar);
 return hangar;
 }
 
@@ -67,19 +61,33 @@ function loadDroppoints(){
 
 var droppoint = {}
 
-droppoint['droppoint1'] = {
-  center: new google.maps.LatLng(41.59852869275755, 0.6444969447127424),
-};
-droppoint['droppoint2'] = {
-  center: new google.maps.LatLng(41.60410285098816, 0.6425707137480297),
-};
-droppoint['droppoint3'] = {
-  center: new google.maps.LatLng(41.60418590491803, 0.646008913965721),
-};
-droppoint['droppoint4'] = {
-  center: new google.maps.LatLng(41.60079657126098, 0.6427229345719954),
+var url = "http://localhost:8000/api/droppoints/?format=json";
+
+$.getJSON( url, function( data ) {
+  var items = [];
+  $.each( data, function( key, val ) {
+
+    if (key == "results"){
+      var results = val;
+
+    $.each( results, function (key,val){
+        console.log(val)
+        droppoint[val.name] = {
+  center: new google.maps.LatLng(val.latitude, val.longitude),
 };
 
+    })
+    }
+  });
+
+});
+console.log(droppoint)
 return droppoint
+
+
 }
 
+function weatherStation(){
+
+
+}

@@ -43,13 +43,15 @@ var hangars = {};
 var droppoints = {};
 
 hangars = loadHangars();
-droppoints = loadDroppoints();
+droppoints = loadDroppoints(map);
+
 
 
 var cityCircle;
 
 
 function initialize() {
+
 
   // Create the map.
   var mapOptions = {
@@ -91,6 +93,7 @@ function initialize() {
   for (var point in droppoints) {
 
   addMarker(droppoints[point].center, map);
+
   }
 
 
@@ -108,7 +111,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
  		 //$('.collapsible').collapsible();
 
 
- 	 $('.test').on('click', function(){
+ 	 $('.droppoints').on('click', function(){
 
         var $el = $(this);
         var isSelected = $el.attr('data-selected');
@@ -131,16 +134,28 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </head>
 
     <body>
-         <nav>
+
+    <div id="menu-top">
+         <nav style="position: fixed;">
 		<ul id="slide-out" class="side-nav">
             <li><a href="/index">Map</a></li>
     		<li><a href="/hangars">Drones</a></li>
-    		<li><a href="/points">DropPoints</a></li>
-			<li><a href="/stations">Stations</a></li>
+    		<li><a href="/droppoints">DropPoints</a></li>
+			<li><a href="/meteostations">Stations</a></li>
 		</ul>
 		<a href="#"  data-activates="slide-out" class="button-collapse  show-on-large"><i class="mdi-navigation-menu"></i></a>
 	</nav>
+        </div>
         {% block content %}
         {% endblock content %}
     </body>
+<footer class="page-footer" style="position: fixed;">
+
+          <div class="footer-copyright">
+            <div class="container">
+            © 2015 Open Source
+            <a class="grey-text text-lighten-4 right" href="#!">FAED Project</a>
+            </div>
+          </div>
+        </footer>
 </html>

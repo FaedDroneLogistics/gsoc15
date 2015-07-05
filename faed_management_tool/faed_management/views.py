@@ -2,6 +2,7 @@ import forms, models
 from django.views.generic import FormView, ListView
 from rest_framework import viewsets
 from serializers import HangarSerializer, DropPointSerializer,MeteoStationSerializer
+from faed_management.models import Hangar, DropPoint, MeteoStation
 
 
 #class PointListView(ListView):
@@ -10,10 +11,42 @@ from serializers import HangarSerializer, DropPointSerializer,MeteoStationSerial
 #    queryset = models.Point.objects.all()
 
 
+class HangarsList(ListView):
+        model = Hangar
+
 class HangarsView(ListView):
-    template_name = 'hangars_list'
-    context_object_name = 'hangar'
+    template_name = 'hangars.html'
+    context_object_name = 'hangars'
     queryset = models.Hangar.objects.all()
+    success_url = "/hangars"
+
+
+class MeteoStationsList(ListView):
+        model = MeteoStation
+
+
+class MeteoStationsView(ListView):
+    template_name = 'meteostations.html'
+    context_object_name = 'meteostations'
+    queryset = models.MeteoStation.objects.all()
+    success_url = "/meteostations"
+
+
+
+
+
+
+class DropPointsView(ListView):
+    template_name = 'droppoints.html'
+    context_object_name = 'droppoints'
+    queryset = models.DropPoint.objects.all()
+    success_url = "/droppoints"
+
+
+class DropPointsList(ListView):
+        model = DropPoint
+
+
 
 class DroneFormView(FormView):
     template_name = 'drone_form.html'
