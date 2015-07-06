@@ -4,13 +4,6 @@ from rest_framework import viewsets
 from serializers import HangarSerializer, DropPointSerializer,MeteoStationSerializer
 from faed_management.models import Hangar, DropPoint, MeteoStation
 
-
-#class PointListView(ListView):
-#    context_object_name = 'points'
-#    template_name = 'point_list.html'
-#    queryset = models.Point.objects.all()
-
-
 class HangarsList(ListView):
         model = Hangar
 
@@ -22,7 +15,7 @@ class HangarsView(ListView):
 
 
 class MeteoStationsList(ListView):
-        model = MeteoStation
+    model = MeteoStation
 
 
 class MeteoStationsView(ListView):
@@ -30,11 +23,6 @@ class MeteoStationsView(ListView):
     context_object_name = 'meteostations'
     queryset = models.MeteoStation.objects.all()
     success_url = "/meteostations"
-
-
-
-
-
 
 class DropPointsView(ListView):
     template_name = 'droppoints.html'
@@ -45,8 +33,6 @@ class DropPointsView(ListView):
 
 class DropPointsList(ListView):
         model = DropPoint
-
-
 
 class DroneFormView(FormView):
     template_name = 'drone_form.html'

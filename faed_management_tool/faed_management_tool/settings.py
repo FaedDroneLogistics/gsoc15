@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'faed_management',
+    'faed_drone_publisher',
     'rest_framework',
 )
 

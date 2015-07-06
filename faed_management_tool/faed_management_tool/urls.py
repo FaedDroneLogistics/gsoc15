@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from faed_drone_publisher.view import drone_detail
 from faed_management.views import HangarFormView, HangarsView, HangarsList, DroneFormView, DropPointFormView, DropPointsView, DropPointsList, StyleURLFormView, MeteoStationFormView, MeteoStationsList, MeteoStationsView
 from django.views.generic.base import TemplateView
 from rest_framework import routers
@@ -29,6 +30,7 @@ router.register(r'droppoints', views.DropPointViewSet, 'droppoints')
 router.register(r'meteostations', views.MeteoStationViewSet, 'meteostations')
 
 urlpatterns = [
+    url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^index/$', TemplateView.as_view(template_name='index.html')),
     url(r'^styleurlform/$', StyleURLFormView.as_view()),
     url(r'^droneform/$', DroneFormView.as_view()),
@@ -48,7 +50,6 @@ urlpatterns = [
     url(r'^meteostations_list/$', MeteoStationsList.as_view()),
     url(r'^meteostationform/$', MeteoStationFormView.as_view()),
 
-
-
+    url(r'^drone/(?P<drone_plate>\w+)/$', drone_detail),
 
 ]

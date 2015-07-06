@@ -1,0 +1,10 @@
+{% extends "base_drone.html" %}
+{% block content %}
+
+<i class="small material-icons">assignment</i> License plate: {{ drone.plate }} <br>
+<i class="small material-icons">room</i> Origin: {{ drone.origin_lat }}, {{ drone.origin_lon }} <br>
+<i class="small material-icons">room</i> Drop point at: {{ drone.destination_lat }}, {{ drone.destination_lon }} <br>
+<i class="small material-icons">report_problem</i> Emergency: heart attack <br>
+<i class="small material-icons">settings_power</i> Batterly life: 95%
+
+{% endblock content %}
