@@ -23,11 +23,12 @@ class DropPoint(models.Model):
 class Drone(models.Model):
     name = models.CharField(max_length=50)
     plate = models.CharField(max_length=50)
-    origin_lat = models.FloatField()
-    origin_lon = models.FloatField()
-    destination_lat = models.FloatField()
-    destination_lon = models.FloatField()
-    emergency = models.CharField(max_length=50, blank=True)
+    origin_lat = models.FloatField(null=True)
+    origin_lon = models.FloatField(null=True)
+    destination_lat = models.FloatField(null=True)
+    destination_lon = models.FloatField(null=True)
+    #altitude = models.FloatField(default=50)
+    emergency = models.CharField(max_length=50, null=True)
     battery_life = models.PositiveSmallIntegerField(default=100)
     style_url = models.ForeignKey(StyleURL)
 
