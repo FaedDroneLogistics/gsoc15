@@ -3,8 +3,9 @@ from django import forms
 import models
 
 class StyleURLForm(forms.Form):
-    href = forms.URLField()
-    scale = forms.FloatField()
+    name = forms.CharField(label='name')
+    href = forms.URLField(label='href', required=True)
+    scale = forms.FloatField(label='scale')
 
 
 class DropPointForm(forms.Form):
