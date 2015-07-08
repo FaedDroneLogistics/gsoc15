@@ -6,13 +6,19 @@
             {% csrf_token %}
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="href" type="text" class="validate">
+                    <input id="name" name="name" type="text" class="validate teal-text text-darken-3">
+                    <label for="name">Style name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="href" name="href" type="url" class="validate teal-text text-darken-3">
                     <label for="href">Image URL</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="scale" type="number" step="any" class="validate">
+                    <input id="scale" name="scale" type="number" step="0.01" class="validate teal-text text-darken-3">
                     <label for="scale">Image scale</label>
                 </div>
             </div>

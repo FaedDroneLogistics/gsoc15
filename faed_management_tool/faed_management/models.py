@@ -1,11 +1,12 @@
 from django.db import models
 
 class StyleURL(models.Model):
+    name = models.CharField(max_length=50)
     href = models.URLField()
     scale = models.FloatField()
 
     def __unicode__(self):
-        return str(self.href)
+        return str(self.name)
 
 class DropPoint(models.Model):
     name = models.CharField(max_length=50)
@@ -20,15 +21,18 @@ class DropPoint(models.Model):
         return str(self.name)
 
 class Drone(models.Model):
+    name = models.CharField(max_length=50)
     plate = models.CharField(max_length=50)
     origin_lat = models.FloatField()
     origin_lon = models.FloatField()
     destination_lat = models.FloatField()
     destination_lon = models.FloatField()
+    emergency = models.CharField(max_length=50, blank=True)
+    battery_life = models.PositiveSmallIntegerField(default=100)
     style_url = models.ForeignKey(StyleURL)
 
     def __unicode__(self):
-        return str(self.plate)
+        return str(self.name + '-' + self.plate)
 
 class Hangar(models.Model):
     name = models.CharField(max_length=50)
