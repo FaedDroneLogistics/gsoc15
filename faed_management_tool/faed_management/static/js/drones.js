@@ -12,6 +12,7 @@ function clearMarkers() {
 
 // Shows any markers currently in the array.
 function showMarkers() {
+console.log(map);
   setAllMap(map);
 }
 
