@@ -6,55 +6,55 @@
             {% csrf_token %}
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="name" type="text" class="validate">
+                    <input id="name" name="name" type="text" class="validate teal-text text-darken-3">
                     <label for="name">Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <textarea id="description" class="materialize-textarea"></textarea>
+                    <textarea id="description" name="description" class="materialize-textarea"></textarea>
                     <label for="description">Description</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="latitude" type="number" step="any" class="validate">
+                    <input id="latitude" name="latitude" type="number" step="any" class="validate teal-text text-darken-3">
                     <label for="latitude">Latitude</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="longitude" type="number" step="any" class="validate">
+                    <input id="longitude" name="longitude" type="number" step="any" class="validate teal-text text-darken-3">
                     <label for="longitude">Longitude</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="altitude" type="number" step="any" min="0" class="validate">
+                    <input id="altitude" name="altitude" type="number" step="any" min="0" class="validate teal-text text-darken-3">
                     <label for="altitude">Altitude</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="is_available" type="checkbox" class="validate">
+                    <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3">
                     <label for="is_available">Availability</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="temperature" type="number" step="any" min="0" class="validate">
+                    <input id="temperature" name="temperature" type="number" step="any" min="0" class="validate teal-text text-darken-3">
                     <label for="temperature">Temperature</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="wind_speed" type="number" step="any" min="0" class="validate">
+                    <input id="wind_speed" name="wind_speed" type="number" step="any" min="0" class="validate teal-text text-darken-3">
                     <label for="wind_speed">Wind Speed</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <select id="style_url" class="browser-default">
+                    <select id="style_url" name="style_url" class="browser-default">
                         <option value="" disabled selected>Choose Style</option>
                         {% for x,y in form.fields.style_url.choices %}
                             <option value="{{ x }}" {% if form.fields.style_url.value == x %} selected{% endif %}>{{ y }}</option>
