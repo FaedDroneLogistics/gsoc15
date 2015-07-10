@@ -36,11 +36,19 @@ var image1 = {
     anchor: new google.maps.Point(50, 50)
   };
 
+var image2 = {
+    url: '/static/img/mappin.png',
+    size: new google.maps.Size(200, 200),
+    origin: new google.maps.Point(0,0),
+
+  };
 var markers = [];
+var marker_test=[];
+
 
 
 var hangars = {};
-var droppoints = {};
+var droppoints = [];
 
 hangars = loadHangars();
 droppoints = loadDroppoints(map);
@@ -70,11 +78,12 @@ function initialize() {
   var marker = new google.maps.Marker({
       position: hangar[city].center,
       map: map,
-      icon: image
+      icon: image,
+      store_id: "10"
   });
   */
 
-  addMarker(hangars[city].center, map, image1);
+  addMarker(hangars[city].center, map, image1, hangars[city].title);
 
     var radiusOptions = {
       strokeColor: '#ff9100',
@@ -85,17 +94,17 @@ function initialize() {
       map: map,
       center: hangars[city].center,
       radius: Math.sqrt(hangars[city].radius) * 100
+
     };
     // Add the circle for this city to the map.
     cityCircle = new google.maps.Circle(radiusOptions);
   }
 
-  for (var point in droppoints) {
 
-  addMarker(droppoints[point].center, map);
+  for (var point in droppoints) {
+    addMarker(droppoints[point].center, map, image2 , droppoints[point].title);
 
   }
-
 
 }
 
@@ -110,18 +119,52 @@ google.maps.event.addDomListener(window, 'load', initialize);
  		 // Initialize collapsible (uncomment the line below if you use the dropdown variation)
  		 //$('.collapsible').collapsible();
 
+$('.meteostations').on('click', function(){
+    testingjquery();
+ })
 
- 	 $('.droppoints').on('click', function(){
+ 	$('.droppoint').on('click', function(){
 
         var $el = $(this);
         var isSelected = $el.attr('data-selected');
 
         if( isSelected != 'true' ){
-        clearMarkers()
+        for(var i=0;i<markers.length;i++){
+            if(markers[i].title =="droppoint"){
+                markers[i].setVisible(false);
+                testingjquery();
+            }
+        }
             $el.attr('data-selected', true)
         }else{
-        showMarkers();
-            $el.attr('data-selected', false)
+ for(var i=0;i<markers.length;i++){
+            if(markers[i].title =="droppoint"){
+                markers[i].setVisible(true);
+            }
+        }            $el.attr('data-selected', false)
+        }
+
+    })
+
+
+    $('.hangar').on('click', function(){
+
+        var $el = $(this);
+        var isSelected = $el.attr('data-selected');
+
+        if( isSelected != 'true' ){
+        for(var i=0;i<markers.length;i++){
+            if(markers[i].title =="hangar"){
+                markers[i].setVisible(false);
+            }
+        }
+            $el.attr('data-selected', true)
+        }else{
+ for(var i=0;i<markers.length;i++){
+            if(markers[i].title =="hangar"){
+                markers[i].setVisible(true);
+            }
+        }            $el.attr('data-selected', false)
         }
 
     })

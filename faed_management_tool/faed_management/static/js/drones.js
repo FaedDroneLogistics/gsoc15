@@ -18,10 +18,11 @@ console.log(map);
 
 
 // Add a marker to the map and push to the array.
-function addMarker(location, map, image) {
+function addMarker(location, map, image,title) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
+    title: title,
     icon: image
   });
   markers.push(marker);
@@ -45,7 +46,8 @@ $.getJSON( url, function( data ) {
     $.each( results, function (key,val){
         hangar[val.id] = {
   center: new google.maps.LatLng(val.latitude, val.longitude),
-  radius: val.radius
+  radius: val.radius,
+  title:"hangar"
 };
 
     })
@@ -53,7 +55,6 @@ $.getJSON( url, function( data ) {
   });
 
 });
-console.log(hangar);
 return hangar;
 }
 
@@ -75,6 +76,7 @@ $.getJSON( url, function( data ) {
         console.log(val)
         droppoint[val.name] = {
   center: new google.maps.LatLng(val.latitude, val.longitude),
+  title:"droppoint"
 };
 
     })
@@ -82,7 +84,6 @@ $.getJSON( url, function( data ) {
   });
 
 });
-console.log(droppoint)
 return droppoint
 
 
@@ -90,5 +91,10 @@ return droppoint
 
 function weatherStation(){
 
+
+}
+
+function testingjquery(){
+console.log("Aquí anirà la funció que cridarà al galaxy o algo així")
 
 }

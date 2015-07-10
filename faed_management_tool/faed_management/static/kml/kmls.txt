@@ -1,0 +1,1 @@
+http://IP_SERVER:8000/static/kml/kmls.txt
