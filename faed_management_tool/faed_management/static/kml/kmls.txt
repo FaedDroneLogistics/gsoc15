@@ -1,1 +1,2 @@
-http://IP_SERVER:8000/static/kml/kmls.txt
+http://172.16.116.32:8000//static/kml/test1.kml
+http://172.16.116.32:8000//static/kml/test2.kml

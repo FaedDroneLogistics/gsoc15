@@ -1,4 +1,5 @@
 from django.template.context_processors import request
+from faed_management.static.py_func.sendtoLG import transfer, a
 import forms, models
 from django.views.generic import FormView, ListView
 from django.shortcuts import render
@@ -153,7 +154,12 @@ def submit_hangar(request):
                                    drone=drone)
             hangar.save()
 
-            return HttpResponseRedirect('/hangarform/')
+            a()
+
+            transfer()
+
+
+            return HttpResponseRedirect('/hangars/')
     else:
         form = forms.HangarForm()
 

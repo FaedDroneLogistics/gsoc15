@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'faed_management',
     'faed_drone_publisher',
     'rest_framework',
+    'kmls_management',
 )
 
 REST_FRAMEWORK = {
