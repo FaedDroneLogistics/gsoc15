@@ -2,16 +2,17 @@
 
 
 {% block content %}
+          <div class="container">
 
     <h2>Hangars</h2>
     <div class="row">
         {% for hangar in object_list %}
-            <div class="col s3">
+            <div class="col s4">
                 <div class="card">
                     <div class="card-content">
-                        <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">visibility</i></a>
 
-                        <h3 class="activator grey-text text-darken-4">{{ hangar.name }}<i class="material-icons right">more_vert</i></h3>
+                        <h4 class="activator grey-text text-darken-4"><a class="btn-floating btn waves-effect waves-light red" ><i class="material-icons">visibility</i></a>
+{{ hangar.name }}<i class="material-icons right">more_vert</i></h4>
                         <p><strong>RADIUS:</strong> {{ hangar.radius }}</p>
                         <p>STATUS: {{ hangar.is_available }}</p>
                         <p>DRONE: {{ hangar.drone }}</p>
@@ -21,7 +22,13 @@
                         <span class="card-title grey-text text-darken-4">Drones<i class="material-icons right">close</i></span>
                         <p>Aqui hi haurà informació el dron que té associat.</p>
                         <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
-                        <a class="btn-floating btn-large waves-effect waves-light red" href="/hangars/delete_hangar/{{hangar.id}}"><i class="material-icons" >delete</i></a>
+
+
+                        <a class="btn-floating btn-large waves-effect waves-light red" onclick="Materialize.toast('<span>Are you sure?</span><a class=&quot;btn-flat yellow-text&quot; href=/hangars/delete_hangar/{{hangar.id}}>Delete<a>', 5000)"><i class="material-icons" >delete</i></a>
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -33,4 +40,5 @@
             <i class="large material-icons">add</i>
         </a>
     </div>
+              </div>
 {% endblock content %}
