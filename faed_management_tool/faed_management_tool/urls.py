@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^droppointform/$', views.submit_droppoint),
 
     url(r'^meteostations/$', MeteoStationsView.as_view(), name='meteostations_list'),
+    url(r'^meteostations/delete_meteostation/(?P<id>\w+)/$', views.delete_meteostation),
     url(r'^meteostations_list/$', MeteoStationsList.as_view()),
     url(r'^meteostationform/$', views.submit_meteostation),
 
