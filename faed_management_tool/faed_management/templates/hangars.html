@@ -3,51 +3,34 @@
 
 {% block content %}
 
- <h2>Hangars</h2>
-<div class="row">
-
+    <h2>Hangars</h2>
+    <div class="row">
         {% for hangar in object_list %}
-    <div class="col s3">
- <div class="card">
+            <div class="col s3">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">visibility</i></a>
 
-            <div class="card-content">
-                    <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">visibility</i></a>
+                        <h3 class="activator grey-text text-darken-4">{{ hangar.name }}<i class="material-icons right">more_vert</i></h3>
+                        <p><strong>RADIUS:</strong> {{ hangar.radius }}</p>
+                        <p>STATUS: {{ hangar.is_available }}</p>
+                        <p>DRONE: {{ hangar.drone }}</p>
 
-              <h3 class="activator grey-text text-darken-4">{{ hangar.name }}<i class="material-icons right">more_vert</i></h3>
-              <p><strong>RADIUS:</strong> {{ hangar.radius }}</p>
-                <p>STATUS: {{ hangar.is_available }}</p>
-                <p>DRONE: {{ hangar.drone }}</p>
-
-
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Drones<i class="material-icons right">close</i></span>
+                        <p>Aqui hi haurà informació el dron que té associat.</p>
+                        <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
+                        <a class="btn-floating btn-large waves-effect waves-light red" href="/hangars/delete_hangar/{{hangar.id}}"><i class="material-icons" >delete</i></a>
+                    </div>
+                </div>
             </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Drones<i class="material-icons right">close</i></span>
-              <p>Aqui hi haurà informació dels drons que té associat.</p>
-                  <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">mode_edit</i></a>
-                  <a class="btn-floating btn-large waves-effect waves-light red" ><i class="material-icons">delete</i></a>
-            </div>
-
-     </div>
-</div>
-
         {% endfor %}
+    </div>
 
-
-
-
-
-
-        </div>
-
-
-  <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">
-    <a class="btn-floating btn-large waves-effect waves-light red" href="/hangarform">
-      <i class="large material-icons">add</i>
-    </a>
-
-  </div>
-
-
-
-
+    <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light red" href="/hangarform">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
 {% endblock content %}

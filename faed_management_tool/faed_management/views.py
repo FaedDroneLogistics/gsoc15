@@ -180,6 +180,10 @@ class MeteoStationViewSet(viewsets.ModelViewSet):
     queryset = models.MeteoStation.objects.all()
     serializer_class = MeteoStationSerializer
 
+def delete_hangar(request,id):
+    Hangar.objects.get(pk=id).delete()
+    return HttpResponseRedirect('/hangars/')
+
 # def get_kml(request):
 #    if request.GET.get('data_model') == 'hangar':
 #        hangars = models.Hangar.objects.all()

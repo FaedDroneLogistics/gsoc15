@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^hangars/$', HangarsView.as_view(), name='hangars-list'),
+    url(r'^hangars/delete_hangar/(?P<id>\w+)/$', views.delete_hangar),
     url(r'^hangar_list/$', HangarsList.as_view()),
     url(r'^hangarform/$', views.submit_hangar),
 
