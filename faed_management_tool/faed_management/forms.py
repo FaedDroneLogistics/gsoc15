@@ -30,21 +30,14 @@ class DroneForm(forms.Form):
         super(DroneForm, self).__init__(*args, **kwargs)
         self.fields['style_url'].choices = [(style.id, style.name) for style in models.StyleURL.objects.all()]
 
-class HangarForm(forms.Form):
-    name = forms.CharField(label='name')
-    description = forms.CharField(widget=forms.Textarea,label='description')
-    latitude = forms.FloatField(label='latitude')
-    longitude = forms.FloatField(label='longitude')
-    altitude = forms.FloatField(label='altitude')
-    radius = forms.FloatField(label='radius')
-    is_available = forms.BooleanField(label='is_available')
-    style_url = forms.ChoiceField(label='style_url')
-    drone = forms.ChoiceField(label='drone')
+class HangarForm(forms.ModelForm):
+    description = forms.CharField(widget=forms.Textarea(attrs={'class':'materialize-textarea'}));
 
-    def __init__(self, *args, **kwargs):
-        super(HangarForm, self).__init__(*args, **kwargs)
-        self.fields['drone'].choices = [(drone.id, drone.name) for drone in models.Drone.objects.all()]
-        self.fields['style_url'].choices = [(style.id, style.name) for style in models.StyleURL.objects.all()]
+    class Meta:
+        model = models.Hangar
+        exclude = ['drop_points']
+
+
 
 class MeteoStationForm(forms.Form):
     name = forms.CharField(label='name')

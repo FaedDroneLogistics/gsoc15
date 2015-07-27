@@ -6,11 +6,13 @@
     <div class="row">
         <form class="col s12" method="post" enctype="multipart/form-data" action="">
             {% csrf_token %}
+            {{ form.non_field_errors }}
             <div class="row">
-                <div class="input-field col s6">
-                    <input id="name" name="name" type="text" class="validate teal-text text-darken-3">
-                    <label for="name">Name</label>
-                </div>
+                   <div class="input-field col s6">
+                                           {{ form.name.error }}
+                     <label for="name" data-error="wrong" data-success="right">Nom</label>
+                    {{ form.name }}
+                    </div>
                  <div class="input-field col s6">
                     <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3">
                     <label for="is_available">Availability</label>
@@ -18,56 +20,52 @@
             </div>
             <div class="row">
                 <div class="input-field col s3">
-                    <input id="latitude" name="latitude" type="number" step="any" class="validate teal-text text-darken-3">
                     <label for="latitude">Latitude</label>
+                                        {{ form.latitude }}
+
                 </div>
 
                 <div class="input-field col s3">
-                    <input id="longitude" name="longitude" type="number" step="any" class="validate teal-text text-darken-3">
+                                        {{ form.longitude }}
                     <label for="longitude">Longitude</label>
                 </div>
 
                 <div class="input-field col s3">
-                    <input id="altitude" name="altitude" type="number" step="any" min="0" class="validate teal-text text-darken-3">
+                                        {{ form.altitude}}
                     <label for="altitude">Altitude</label>
                 </div>
 
                 <div class="input-field col s3">
-                    <input id="radius" name="radius" type="number" step="any" min="0" class="validate teal-text text-darken-3">
+                                        {{ form.radius }}
                     <label for="radius">Radius</label>
                 </div>
             </div>
 
 
             <div class="row">
-                <div class="input-field col s6">
-                    <select id="drone" name="drone" class="browser-default">
-                        <option value="" disabled selected>Choose Drone</option>
-                        {% for x,y in form.fields.drone.choices %}
-                            <option value="{{ x }}" {% if form.fields.drone.value == x %} selected{% endif %}>{{ y }}</option>
-                        {% endfor %}
-                    </select>
+                <div class="fieldWrapper col s6">
+                    {{ form.drone }}
+
                     <a class="material-icons" href="/droneform" target="_blank">add</a>
                 </div>
 
                 <div class="input-field col s6">
-                    <select id="style_url" name="style_url" class="browser-default">
-                        <option value="" disabled selected>Choose Style</option>
-                        {% for x,y in form.fields.style_url.choices %}
-                            <option value="{{ x }}" {% if form.fields.style_url.value == x %} selected{% endif %}>{{ y }}</option>
-                        {% endfor %}
-                    </select>
+                    {{ form.style_url }}
+
                     <a class="material-icons" href="/styleurlform" target="_blank">add</a>
                 </div>
             </div>
             <div class="row">
 
                 <div class="input-field col s6">
-                    <textarea id="description" name="description" class="materialize-textarea"></textarea>
                     <label for="description">Description</label>
-                </div>
-            <a href="/"><input type="submit" value="Send" class="btn btn-default"/></a>
+                                        {{ form.description }}
 
+                </div>
+
+ <button class="waves-effect waves-light btn-large" name="action" type="submit">
+        <i class="material-icons right">send</i>Guardar
+        </button>
 
 
             </div>

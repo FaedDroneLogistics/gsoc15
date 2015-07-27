@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from rest_framework import viewsets
 from serializers import HangarSerializer, DropPointSerializer, MeteoStationSerializer
 from faed_management.models import Hangar, DropPoint, MeteoStation
-
+from faed_management.forms import HangarForm
 
 class HangarsList(ListView):
     model = Hangar
@@ -141,30 +141,17 @@ def submit_hangar(request):
 
         if form.is_valid():
             print 'AHAHAHAHAHAHAHAHA'
-            name = form.cleaned_data['name']
-            description = form.cleaned_data['description']
-            latitude = form.cleaned_data['latitude']
-            longitude = form.cleaned_data['longitude']
-            altitude = form.cleaned_data['altitude']
-            is_available = form.cleaned_data['is_available']
-            style_url = models.StyleURL.objects.get(id=form.cleaned_data['style_url'])
-            radius = form.cleaned_data['radius']
-            drone = models.Drone.objects.get(id=form.cleaned_data['drone'])
-
-            drone.origin_lat = latitude
-            drone.origin_lon = longitude
+            hangar=form.save(commit=False)
+            hangar.drone.origin_lat = hangar.latitude
+            hangar.drone.origin_lon = hangar.longitude
             #drone.altitude = altitude
-            drone.save()
+            hangar.drone.save()
 
-            hangar = models.Hangar(name=name, description=description, latitude=latitude, longitude=longitude,
-                                   altitude=altitude, is_available=is_available, style_url=style_url, radius=radius,
-                                   drone=drone)
             hangar.save()
 
             a()
 
             transfer()
-
 
             return HttpResponseRedirect('/hangars/')
     else:
@@ -191,9 +178,36 @@ def delete_hangar(request,id):
     Hangar.objects.get(pk=id).delete()
     return HttpResponseRedirect('/hangars/')
 
+def delete_droppoint(request,id):
+    DropPoint.objects.get(pk=id).delete()
+    return HttpResponseRedirect('/droppoints/')
+
 def delete_meteostation(request,id):
     MeteoStation.objects.get(pk=id).delete()
     return HttpResponseRedirect('/meteostations/')
+
+
+def edit_hangar(request,id):
+    requested_hangar = Hangar.objects.get(pk=id)
+    form=HangarForm(instance=requested_hangar)
+    if request.method=='POST':
+        form=HangarForm(request.POST, instance=requested_hangar)
+        if form.is_valid():
+            hangar=form.save(commit=False)
+            hangar.drone.origin_lat = hangar.latitude
+            hangar.drone.origin_lon = hangar.longitude
+            #drone.altitude = altitude
+            hangar.drone.save()
+
+            hangar.save()
+            return HttpResponseRedirect('/hangars')
+    return render(request, 'hangar_form.html',{'form':form})
+
+
+
+
+
+
 
 # def get_kml(request):
 #    if request.GET.get('data_model') == 'hangar':

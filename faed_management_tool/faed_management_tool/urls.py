@@ -40,10 +40,12 @@ urlpatterns = [
 
     url(r'^hangars/$', HangarsView.as_view(), name='hangars-list'),
     url(r'^hangars/delete_hangar/(?P<id>\w+)/$', views.delete_hangar),
+    url(r'^hangars/edit_hangar/(?P<id>\w+)/$', views.edit_hangar),
     url(r'^hangar_list/$', HangarsList.as_view()),
     url(r'^hangarform/$', views.submit_hangar),
 
     url(r'^droppoints/$', DropPointsView.as_view(), name='droppoint-list'),
+    url(r'^droppoints/delete_droppoint/(?P<id>\w+)/$', views.delete_droppoint),
     url(r'^droppoint_list/$', DropPointsList.as_view()),
     url(r'^droppointform/$', views.submit_droppoint),
 
