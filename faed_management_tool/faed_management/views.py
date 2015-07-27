@@ -1,6 +1,7 @@
-from django.template.context_processors import request
+import os, forms, models, faed_management
+
 from faed_management.static.py_func.sendtoLG import transfer, a
-import forms, models
+from kmls_management import kml_generator
 from django.views.generic import FormView, ListView
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -105,6 +106,12 @@ def submit_meteostation(request):
                                                altitude=altitude, is_available=is_available, style_url=style_url,
                                                temperature=temperature, wind_speed=wind_speed)
             meteostation.save()
+            meteos = models.MeteoStation.objects.all()
+            for meteo in meteos:
+                kml_generator.placemark_kml(meteo,os.path.abspath(os.path.dirname(__file__)) + "/static/kml/meteo_" + str(meteo.id) + ".kml",
+                                            "http://www.latitude-voile.com/latitude_ecole_de_voile_la_baule/images/stories/PUB/acc_meteo.png",
+                                            "meteo_station")
+            return HttpResponseRedirect('/meteostations/')
     else:
         form = forms.MeteoStationForm()
 
@@ -183,6 +190,10 @@ class MeteoStationViewSet(viewsets.ModelViewSet):
 def delete_hangar(request,id):
     Hangar.objects.get(pk=id).delete()
     return HttpResponseRedirect('/hangars/')
+
+def delete_meteostation(request,id):
+    MeteoStation.objects.get(pk=id).delete()
+    return HttpResponseRedirect('/meteostations/')
 
 # def get_kml(request):
 #    if request.GET.get('data_model') == 'hangar':
