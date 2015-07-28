@@ -7,8 +7,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from rest_framework import viewsets
 from serializers import HangarSerializer, DropPointSerializer, MeteoStationSerializer
-from faed_management.models import Hangar, DropPoint, MeteoStation
-from faed_management.forms import HangarForm, MeteoStationForm, DropPointForm
+from faed_management.models import Hangar, DropPoint, MeteoStation, StyleURL, Drone
+from faed_management.forms import HangarForm, MeteoStationForm, DropPointForm, StyleURLForm, DroneForm
 
 #List items
 class HangarsList(ListView):
@@ -160,6 +160,32 @@ def delete_meteostation(request, id):
 
 
 #Edit items
+def edit_styleurl(request, id):
+    requested_styleurl = StyleURL.objects.get(pk=id)
+    form = StyleURLForm(instance=requested_styleurl)
+    if request.method =='POST':
+        form = StyleURLForm(request.POST, instance=requested_styleurl)
+        if form.is_valid():
+            styleurl = form.save(commit=False)
+            styleurl.save()
+
+            return HttpResponseRedirect('/')
+
+    return render(request, 'styleurl_form.html', {'form': form})
+
+def edit_drone(request, id):
+    requested_drone = Drone.objects.get(pk=id)
+    form = DroneForm(instance=requested_drone)
+    if request.method =='POST':
+        form = DroneForm(request.POST, instance=requested_drone)
+        if form.is_valid():
+            drone = form.save(commit=False)
+            drone.save()
+
+            return HttpResponseRedirect('/hangars')
+
+    return render(request, 'drone_form.html', {'form': form})
+
 def edit_hangar(request, id):
     requested_hangar = Hangar.objects.get(pk=id)
     form = HangarForm(instance=requested_hangar)
