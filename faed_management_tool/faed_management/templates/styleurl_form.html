@@ -6,23 +6,24 @@
             {% csrf_token %}
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="name" name="name" type="text" class="validate teal-text text-darken-3">
-                    <label for="name">Style name</label>
+                    {{ form.name.error }}
+                    <label for="name" data-error="wrong" data-success="right">Nom</label>
+                    {{ form.name }}
+                </div>
+                <div class="input-field col s6">
+                    {{ form.href }}
+                    <label for="href">URL</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="href" name="href" type="url" class="validate teal-text text-darken-3">
-                    <label for="href">Image URL</label>
+                    {{ form.scale }}
+                    <label for="scale">Scale</label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="scale" name="scale" type="number" step="0.01" class="validate teal-text text-darken-3">
-                    <label for="scale">Image scale</label>
-                </div>
-            </div>
-            <a href="/"><input type="submit" value="Send" class="btn btn-default"/></a>
+                <button class="waves-effect waves-light btn-large" name="action" type="submit">
+                        <i class="material-icons right">send</i>Guardar
+                </button>
+             </div>
         </form>
     </div>
 {% endblock content %}

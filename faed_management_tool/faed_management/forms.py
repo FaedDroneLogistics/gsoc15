@@ -2,33 +2,23 @@ from django import forms
 
 import models
 
-class StyleURLForm(forms.Form):
-    name = forms.CharField(label='name')
-    href = forms.URLField(label='href', required=True)
-    scale = forms.FloatField(label='scale')
+class StyleURLForm(forms.ModelForm):
+    class Meta:
+        model = models.StyleURL
+        exclude = []
 
 
-class DropPointForm(forms.Form):
-    name = forms.CharField(label='name')
-    description = forms.CharField(widget=forms.Textarea,label='description')
-    latitude = forms.FloatField(label='latitude')
-    longitude = forms.FloatField(label='longitude')
-    altitude = forms.FloatField(label='altitude')
-    is_available = forms.BooleanField(label='is_available')
-    style_url = forms.ChoiceField(label='style_url')
+class DropPointForm(forms.ModelForm):
+    description = forms.CharField(widget=forms.Textarea(attrs={'class':'materialize-textarea'}));
 
-    def __init__(self, *args, **kwargs):
-        super(DropPointForm, self).__init__(*args, **kwargs)
-        self.fields['style_url'].choices = [(style.id, style.name) for style in models.StyleURL.objects.all()]
+    class Meta:
+        model = models.DropPoint
+        exclude = []
 
-class DroneForm(forms.Form):
-    name = forms.CharField(label='name')
-    plate = forms.CharField(label='plate')
-    style_url = forms.ChoiceField(label='style_url')
-
-    def __init__(self, *args, **kwargs):
-        super(DroneForm, self).__init__(*args, **kwargs)
-        self.fields['style_url'].choices = [(style.id, style.name) for style in models.StyleURL.objects.all()]
+class DroneForm(forms.ModelForm):
+    class Meta:
+        model = models.Drone
+        exclude = ['origin_lat', 'origin_lon', 'destination_lat', 'destination_lon', 'emergency', 'battery_life']
 
 class HangarForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea(attrs={'class':'materialize-textarea'}));

@@ -32,11 +32,13 @@ router.register(r'meteostations', views.MeteoStationViewSet, 'meteostations')
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^index/$', TemplateView.as_view(template_name='index.html')),
-    url(r'^styleurlform/$', views.submit_styleurl),
-    url(r'^droneform/$', views.submit_drone),
+
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^styleurlform/$', views.submit_styleurl),
 
     url(r'^hangars/$', HangarsView.as_view(), name='hangars-list'),
     url(r'^hangars/delete_hangar/(?P<id>\w+)/$', views.delete_hangar),
@@ -46,6 +48,7 @@ urlpatterns = [
 
     url(r'^droppoints/$', DropPointsView.as_view(), name='droppoint-list'),
     url(r'^droppoints/delete_droppoint/(?P<id>\w+)/$', views.delete_droppoint),
+    url(r'^droppoints/edit_droppoint/(?P<id>\w+)/$', views.edit_droppoint),
     url(r'^droppoint_list/$', DropPointsList.as_view()),
     url(r'^droppointform/$', views.submit_droppoint),
 
@@ -55,6 +58,7 @@ urlpatterns = [
     url(r'^meteostations_list/$', MeteoStationsList.as_view()),
     url(r'^meteostationform/$', views.submit_meteostation),
 
+    url(r'^droneform/$', views.submit_drone),
     url(r'^drone/(?P<drone_plate>\w+)/$', drone_detail),
 
 ]
