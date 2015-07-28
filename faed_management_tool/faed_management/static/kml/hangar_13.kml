@@ -4,18 +4,18 @@
 		<Style id="faed_drone">
 			<IconStyle>
 				<Icon>
-					<href>http://localhost:8000/static/img/faeddrone100x100.png</href>
+					<href>http://172.26.17.106:8000/static/img/faeddrone100x100.png</href>
 					<scale>1.0</scale>
 				</Icon>
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>Hangar1</name>
-			<description>Drone for Hangar1</description>
+			<name>Hangar4</name>
+			<description>Magraners</description>
 			<styleUrl>faed_drone</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.626684076164,41.6173974885,65.1294819509</coordinates>
+				<coordinates>0.666073565584,41.6086375518,0.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

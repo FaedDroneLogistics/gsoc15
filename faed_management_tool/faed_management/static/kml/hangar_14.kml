@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>Hangar1</name>
-			<description>Drone for Hangar1</description>
+			<name>Hangar5</name>
+			<description>Poligon "Els Frares"</description>
 			<styleUrl>faed_drone</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.626684076164,41.6173974885,65.1294819509</coordinates>
+				<coordinates>0.661839040324,41.6283029505,0.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

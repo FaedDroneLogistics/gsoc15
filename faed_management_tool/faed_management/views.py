@@ -1,5 +1,6 @@
 import os, forms, models
 
+from kmls_management.models import Kml
 from faed_management.static.py_func.sendtoLG import transfer, a
 from kmls_management import kml_generator
 from django.views.generic import ListView
@@ -112,7 +113,8 @@ def submit_meteostation(request):
         if form.is_valid():
             meteostation = form.save(commit=False)
             meteostation.save()
-            create_kml(meteostation, "meteo")
+            m_kml = Kml()
+            create_kml(meteostation, "meteo", "create")
             a()
             transfer()
 
@@ -189,9 +191,12 @@ def edit_hangar(request, id):
             hangar.drone.origin_lon = hangar.longitude
             #drone.altitude = altitude
             hangar.drone.save()
-            create_kml(hangar, "hangar")
-
             hangar.save()
+            create_kml(hangar, "hangar", "edit")
+            a()
+            transfer()
+
+
             return HttpResponseRedirect('/hangars')
 
     return render(request, 'hangar_form.html',{'form':form})
@@ -202,10 +207,9 @@ def edit_meteostation(request, id):
     if request.method == 'POST':
         form = MeteoStationForm(request.POST, instance=requested_meteo)
         if form.is_valid():
-            print 'AAAA'
             meteostation = form.save(commit=False)
             meteostation.save()
-            create_kml(meteostation, "meteo")
+            create_kml(meteostation, "meteo", "edit")
             a()
             transfer()
 
@@ -221,7 +225,7 @@ def edit_droppoint(request, id):
         if form.is_valid():
             droppoint = form.save(commit=False)
             droppoint.save()
-            create_kml(droppoint, "droppoint")
+            create_kml(droppoint, "droppoint", "edit")
             a()
             transfer()
 
@@ -231,6 +235,10 @@ def edit_droppoint(request, id):
 
 
 # Support functions
-def create_kml(item, type):
-    kml_generator.placemark_kml(item,
-                                os.path.abspath(os.path.dirname(__file__)) + "/static/kml/" + type + "_" + str(item.id) + ".kml")
+def create_kml(item, type, action):
+    name = type + "_" + str(item.id) + ".kml"
+    path = os.path.dirname(__file__) + "/static/kml/" + name
+    kml_generator.placemark_kml(item, path)
+
+    #if action == 'create' and type == "meteo":
+    Kml(name=name, url="static/kml/" + name).save()

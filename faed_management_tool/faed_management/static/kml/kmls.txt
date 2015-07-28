@@ -1,2 +1,14 @@
-http://172.16.116.32:8000//static/kml/test1.kml
-http://172.16.116.32:8000//static/kml/test2.kml
+http://172.26.17.106:8000/static/kml/meteo_3.kml
+http://172.26.17.106:8000//static/kml/hangar_10.kml
+http://172.26.17.106:8000//static/kml/hangar_11.kml
+http://172.26.17.106:8000//static/kml/hangar_12.kml
+http://172.26.17.106:8000//static/kml/hangar_13.kml
+http://172.26.17.106:8000//static/kml/hangar_14.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml
+http://172.26.17.106:8000/static/kml/hangar_10.kml

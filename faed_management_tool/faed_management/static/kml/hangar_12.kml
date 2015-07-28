@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>Hangar1</name>
-			<description>Drone for Hangar1</description>
+			<name>Hangar3</name>
+			<description>Bordeta</description>
 			<styleUrl>faed_drone</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.626684076164,41.6173974885,65.1294819509</coordinates>
+				<coordinates>0.638476655799,41.6024309434,13.207299735</coordinates>
 			</Point>
 		</Placemark>
 	</Document>
