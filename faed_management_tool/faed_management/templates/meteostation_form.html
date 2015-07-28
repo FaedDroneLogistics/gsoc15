@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!--
     <div class="row">
         <form class="col s12" method="post" enctype="multipart/form-data" action="">
             {% csrf_token %}
@@ -65,5 +66,64 @@
             </div>
             <a href="/"><input type="submit" value="Send" class="btn btn-default"/></a>
         </form>
+    </div>
+-->
+    <div class="container">
+        <div class="row">
+            <form class="col s12" method="post" enctype="multipart/form-data" action="">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="row">
+                    <div class="input-field col s6">
+                        {{ form.name.error }}
+                        <label for="name" data-error="wrong" data-success="right">Nom</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3">
+                        <label for="is_available">Availability</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s3">
+                        <label for="latitude">Latitude</label>
+                        {{ form.latitude }}
+                    </div>
+                    <div class="input-field col s3">
+                        {{ form.longitude }}
+                        <label for="longitude">Longitude</label>
+                    </div>
+                    <div class="input-field col s3">
+                        {{ form.altitude}}
+                        <label for="altitude">Altitude</label>
+                    </div>
+                    <div class="input-field col s3">
+                        {{ form.temperature }}
+                        <label for="temperature">Temperature</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s3">
+                        {{ form.wind_speed }}
+                        <label for="wind_speed">Wind speed</label>
+                    </div>
+                    <div class="input-field col s6">
+                        {{ form.style_url }}
+                        <a class="material-icons" href="/styleurlform" target="_blank">add</a>
+                        <label for="style_url">Style</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for="description">Description</label>
+                        {{ form.description }}
+                    </div>
+
+                    <button class="waves-effect waves-light btn-large" name="action" type="submit">
+                        <i class="material-icons right">send</i>Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 {% endblock content %}

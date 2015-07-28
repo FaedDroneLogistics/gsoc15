@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from rest_framework import viewsets
 from serializers import HangarSerializer, DropPointSerializer, MeteoStationSerializer
 from faed_management.models import Hangar, DropPoint, MeteoStation
-from faed_management.forms import HangarForm
+from faed_management.forms import HangarForm, MeteoStationForm
 
 class HangarsList(ListView):
     model = Hangar
@@ -86,37 +86,6 @@ def submit_droppoint(request):
 
     return render(request, 'droppoint_form.html', {'form': form})
 
-def submit_meteostation(request):
-    if request.method == 'POST':
-        form = forms.MeteoStationForm(request.POST)
-
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            description = form.cleaned_data['description']
-            latitude = form.cleaned_data['latitude']
-            longitude = form.cleaned_data['longitude']
-            altitude = form.cleaned_data['altitude']
-            is_available = form.cleaned_data['is_available']
-            style_url = models.StyleURL.objects.get(id=form.cleaned_data['style_url'])
-            temperature = form.cleaned_data['temperature']
-            wind_speed = form.cleaned_data['wind_speed']
-
-            meteostation = models.MeteoStation(name=name, description=description, latitude=latitude,
-                                               longitude=longitude,
-                                               altitude=altitude, is_available=is_available, style_url=style_url,
-                                               temperature=temperature, wind_speed=wind_speed)
-            meteostation.save()
-            meteos = models.MeteoStation.objects.all()
-            for meteo in meteos:
-                kml_generator.placemark_kml(meteo,os.path.abspath(os.path.dirname(__file__)) + "/static/kml/meteo_" + str(meteo.id) + ".kml",
-                                            "http://www.latitude-voile.com/latitude_ecole_de_voile_la_baule/images/stories/PUB/acc_meteo.png",
-                                            "meteo_station")
-            return HttpResponseRedirect('/meteostations/')
-    else:
-        form = forms.MeteoStationForm()
-
-    return render(request, 'meteostation_form.html', {'form': form})
-
 def submit_drone(request):
     if request.method == 'POST':
         form = forms.DroneForm(request.POST)
@@ -141,16 +110,14 @@ def submit_hangar(request):
 
         if form.is_valid():
             print 'AHAHAHAHAHAHAHAHA'
-            hangar=form.save(commit=False)
+            hangar = form.save(commit=False)
             hangar.drone.origin_lat = hangar.latitude
             hangar.drone.origin_lon = hangar.longitude
             #drone.altitude = altitude
             hangar.drone.save()
-
             hangar.save()
 
             a()
-
             transfer()
 
             return HttpResponseRedirect('/hangars/')
@@ -158,6 +125,23 @@ def submit_hangar(request):
         form = forms.HangarForm()
 
     return render(request, 'hangar_form.html', {'form': form})
+
+def submit_meteostation(request):
+    if request.method == 'POST':
+        form = forms.MeteoStationForm(request.POST)
+
+        if form.is_valid():
+            meteostation = form.save(commit=False)
+            meteostation.save()
+
+            a()
+            transfer()
+
+            return HttpResponseRedirect('/meteostations/')
+    else:
+        form = forms.MeteoStationForm()
+
+    return render(request, 'meteostation_form.html', {'form': form})
 
 # REST API
 class HangarViewSet(viewsets.ModelViewSet):
@@ -189,11 +173,11 @@ def delete_meteostation(request,id):
 
 def edit_hangar(request,id):
     requested_hangar = Hangar.objects.get(pk=id)
-    form=HangarForm(instance=requested_hangar)
-    if request.method=='POST':
-        form=HangarForm(request.POST, instance=requested_hangar)
+    form = HangarForm(instance=requested_hangar)
+    if request.method =='POST':
+        form = HangarForm(request.POST, instance=requested_hangar)
         if form.is_valid():
-            hangar=form.save(commit=False)
+            hangar = form.save(commit=False)
             hangar.drone.origin_lat = hangar.latitude
             hangar.drone.origin_lon = hangar.longitude
             #drone.altitude = altitude
@@ -203,12 +187,14 @@ def edit_hangar(request,id):
             return HttpResponseRedirect('/hangars')
     return render(request, 'hangar_form.html',{'form':form})
 
+def edit_meteostation(request,id):
+    requested_meteo = MeteoStation.objects.get(pk=id)
+    form = MeteoStationForm(instance=requested_meteo)
+    if request.method =='POST':
+        form = HangarForm(request.POST, instance=requested_meteo)
+        if form.is_valid():
+            meteo_station = form.save(commit=False)
+            meteo_station.save()
 
-
-
-
-
-
-# def get_kml(request):
-#    if request.GET.get('data_model') == 'hangar':
-#        hangars = models.Hangar.objects.all()
+            return HttpResponseRedirect('/meteostations')
+    return render(request, 'meteostation_form.html', {'form': form})
