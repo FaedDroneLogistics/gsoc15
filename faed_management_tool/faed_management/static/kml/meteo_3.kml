@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document>
+		<Style id="xxx">
+			<IconStyle>
+				<Icon>
+					<href>http://www.reappciona.net/web/wp-content/themes/Hercules-theme/images/google-maps-marker.png</href>
+					<scale>1.0</scale>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Placemark>
+			<name>Meteo Station 1</name>
+			<description>Meteo Station 1 in Lleida, near La Seu</description>
+			<styleUrl>xxx</styleUrl>
+			<Point>
+				<altitudeMode>absolute</altitudeMode>
+				<coordinates>0.0,41.0,15.0</coordinates>
+			</Point>
+		</Placemark>
+	</Document>
+</kml>

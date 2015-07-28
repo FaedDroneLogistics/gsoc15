@@ -1,8 +1,8 @@
-import os, forms, models, faed_management
+import os, forms, models
 
 from faed_management.static.py_func.sendtoLG import transfer, a
 from kmls_management import kml_generator
-from django.views.generic import FormView, ListView
+from django.views.generic import ListView
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from rest_framework import viewsets
@@ -10,7 +10,7 @@ from serializers import HangarSerializer, DropPointSerializer, MeteoStationSeria
 from faed_management.models import Hangar, DropPoint, MeteoStation, StyleURL, Drone
 from faed_management.forms import HangarForm, MeteoStationForm, DropPointForm, StyleURLForm, DroneForm
 
-#List items
+# List items
 class HangarsList(ListView):
     model = Hangar
 
@@ -61,7 +61,7 @@ def submit_droppoint(request):
         if form.is_valid():
             droppoint = form.save(commit=False)
             droppoint.save()
-
+            create_kml(droppoint, "droppoint")
             a()
             transfer()
 
@@ -79,9 +79,6 @@ def submit_drone(request):
             drone = form.save(commit=False)
             drone.save()
             return HttpResponseRedirect('/hangars/')
-        else:
-            form = forms.DroneForm
-
     else:
         form = forms.DroneForm()
 
@@ -98,7 +95,7 @@ def submit_hangar(request):
             #drone.altitude = altitude
             hangar.drone.save()
             hangar.save()
-
+            create_kml(hangar, "hangar")
             a()
             transfer()
 
@@ -115,12 +112,7 @@ def submit_meteostation(request):
         if form.is_valid():
             meteostation = form.save(commit=False)
             meteostation.save()
-
-#            meteos = models.MeteoStation.objects.all()
-#            for meteo in meteos:
-#                kml_generator.placemark_kml(meteo,os.path.abspath(os.path.dirname(__file__)) + "/static/kml/meteo_" + str(meteo.id) + ".kml",
-#                                            "http://www.latitude-voile.com/latitude_ecole_de_voile_la_baule/images/stories/PUB/acc_meteo.png",
-#                                            "meteo_station")
+            create_kml(meteostation, "meteo")
             a()
             transfer()
 
@@ -145,7 +137,7 @@ class MeteoStationViewSet(viewsets.ModelViewSet):
     serializer_class = MeteoStationSerializer
 
 
-#Delte items
+# Delte items
 def delete_hangar(request, id):
     Hangar.objects.get(pk=id).delete()
     return HttpResponseRedirect('/hangars/')
@@ -197,19 +189,25 @@ def edit_hangar(request, id):
             hangar.drone.origin_lon = hangar.longitude
             #drone.altitude = altitude
             hangar.drone.save()
+            create_kml(hangar, "hangar")
 
             hangar.save()
             return HttpResponseRedirect('/hangars')
+
     return render(request, 'hangar_form.html',{'form':form})
 
 def edit_meteostation(request, id):
     requested_meteo = MeteoStation.objects.get(pk=id)
     form = MeteoStationForm(instance=requested_meteo)
     if request.method == 'POST':
-        form = HangarForm(request.POST, instance=requested_meteo)
+        form = MeteoStationForm(request.POST, instance=requested_meteo)
         if form.is_valid():
-            meteo_station = form.save(commit=False)
-            meteo_station.save()
+            print 'AAAA'
+            meteostation = form.save(commit=False)
+            meteostation.save()
+            create_kml(meteostation, "meteo")
+            a()
+            transfer()
 
             return HttpResponseRedirect('/meteostations')
 
@@ -223,6 +221,16 @@ def edit_droppoint(request, id):
         if form.is_valid():
             droppoint = form.save(commit=False)
             droppoint.save()
+            create_kml(droppoint, "droppoint")
+            a()
+            transfer()
+
             return HttpResponseRedirect('/droppoints')
 
     return render(request, 'droppoint_form.html', {'form': form})
+
+
+# Support functions
+def create_kml(item, type):
+    kml_generator.placemark_kml(item,
+                                os.path.abspath(os.path.dirname(__file__)) + "/static/kml/" + type + "_" + str(item.id) + ".kml")
