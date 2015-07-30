@@ -62,7 +62,7 @@ def submit_droppoint(request):
         if form.is_valid():
             droppoint = form.save(commit=False)
             droppoint.save()
-            create_kml(droppoint, "droppoint")
+            create_kml(droppoint, "droppoint", "create")
             a()
             transfer()
 
@@ -96,7 +96,7 @@ def submit_hangar(request):
             #drone.altitude = altitude
             hangar.drone.save()
             hangar.save()
-            create_kml(hangar, "hangar")
+            create_kml(hangar, "hangar", "create")
             a()
             transfer()
 
@@ -113,7 +113,6 @@ def submit_meteostation(request):
         if form.is_valid():
             meteostation = form.save(commit=False)
             meteostation.save()
-            m_kml = Kml()
             create_kml(meteostation, "meteo", "create")
             a()
             transfer()
@@ -141,15 +140,21 @@ class MeteoStationViewSet(viewsets.ModelViewSet):
 
 # Delte items
 def delete_hangar(request, id):
-    Hangar.objects.get(pk=id).delete()
+    hangar = Hangar.objects.get(pk=id)
+    delete_kml(hangar.id, "hangar")
+    hangar.delete()
     return HttpResponseRedirect('/hangars/')
 
 def delete_droppoint(request, id):
-    DropPoint.objects.get(pk=id).delete()
+    droppoint = DropPoint.objects.get(pk=id)
+    delete_kml(droppoint.id, "droppoint")
+    droppoint.delete()
     return HttpResponseRedirect('/droppoints/')
 
 def delete_meteostation(request, id):
-    MeteoStation.objects.get(pk=id).delete()
+    meteostation = MeteoStation.objects.get(pk=id)
+    delete_kml(meteostation.id, "meteo")
+    meteostation.delete()
     return HttpResponseRedirect('/meteostations/')
 
 
@@ -240,5 +245,17 @@ def create_kml(item, type, action):
     path = os.path.dirname(__file__) + "/static/kml/" + name
     kml_generator.placemark_kml(item, path)
 
-    #if action == 'create' and type == "meteo":
-    Kml(name=name, url="static/kml/" + name).save()
+    if action == 'create':
+        Kml(name=name, url="static/kml/" + name).save()
+
+def delete_kml(id, type):
+    filename = type + "_" + str(id) + ".kml"
+    path = os.path.dirname(__file__) + "/static/kml/"
+    print filename
+    for files in os.walk(path):
+        print files
+        if filename in files[2]:
+            os.remove(path + filename)
+            Kml.objects.get(name=filename).delete()
+            return
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document>
+		<Style id="drop_point">
+			<IconStyle>
+				<Icon>
+					<href>http://www.mavinci.de/images/icon3.png</href>
+					<scale>1.0</scale>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Placemark>
+			<name>DropPoint14</name>
+			<description>Drop Point 14 in Lleida</description>
+			<styleUrl>drop_point</styleUrl>
+			<Point>
+				<altitudeMode>absolute</altitudeMode>
+				<coordinates>0.671320408965,41.6063518125,1688.24338098</coordinates>
+			</Point>
+		</Placemark>
+	</Document>
+</kml>
