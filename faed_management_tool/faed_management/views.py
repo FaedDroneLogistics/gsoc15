@@ -249,7 +249,10 @@ def create_kml(item, type, action):
         Kml(name=name, url="static/kml/" + name).save()
 
     if type == 'hangar':
-        hangar_influence(item)
+        name_influence = hangar_influence(item)
+        if action == 'create':
+            Kml(name=name_influence, url="static/kml/" + name_influence).save()
+
 
 
 def delete_kml(id, type):
@@ -277,3 +280,5 @@ def hangar_influence(hangar):
     response = urllib2.urlopen(req, json.dumps(data)).read()
     circle_points = json.loads(response)
     kml_generator.circle_kml(circle_points['points'], path)
+
+    return name

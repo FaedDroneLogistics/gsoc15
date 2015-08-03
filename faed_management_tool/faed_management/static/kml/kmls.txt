@@ -23,4 +23,8 @@ http://172.26.17.106:8000/static/kml/droppoint_24.kml
 http://172.26.17.106:8000/static/kml/droppoint_23.kml
 http://172.26.17.106:8000/static/kml/droppoint_22.kml
 http://172.26.17.106:8000/static/kml/droppoint_19.kml
-http://172.26.17.106:8000/static/kml/hangar_24.kml
+http://172.26.17.106:8000/static/kml/hangar_10_inf.kml
+http://172.26.17.106:8000/static/kml/hangar_11_inf.kml
+http://172.26.17.106:8000/static/kml/hangar_12_inf.kml
+http://172.26.17.106:8000/static/kml/hangar_13_inf.kml
+http://172.26.17.106:8000/static/kml/hangar_14_inf.kml
