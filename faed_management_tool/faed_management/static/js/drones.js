@@ -18,7 +18,7 @@ console.log(map);
 
 
 // Add a marker to the map and push to the array.
-function addMarker(location, map, image,title) {
+function addMarkerIcon(location, map, image,title) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
@@ -26,7 +26,16 @@ function addMarker(location, map, image,title) {
     icon: image
   });
   markers.push(marker);
+}
 
+// Add a marker to the map and push to the array.
+function addMarker(location, map,title) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: title,
+  });
+  markers.push(marker);
 }
 
 
@@ -94,7 +103,3 @@ function weatherStation(){
 
 }
 
-function testingjquery(){
-console.log("Aquí anirà la funció que cridarà al galaxy o algo així")
-
-}

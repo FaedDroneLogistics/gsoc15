@@ -37,9 +37,8 @@ var image1 = {
   };
 
 var image2 = {
-    url: '/static/img/mappin.png',
-    size: new google.maps.Size(200, 200),
-    origin: new google.maps.Point(0,0),
+    url: '/static/img/marker.png',
+
 
   };
 var markers = [];
@@ -74,22 +73,15 @@ function initialize() {
   // Construct the circle for each value in hangar.
   // Note: We scale the area of the circle based on the radius.
   for (var city in hangars) {
-  /*
-  var marker = new google.maps.Marker({
-      position: hangar[city].center,
-      map: map,
-      icon: image,
-      store_id: "10"
-  });
-  */
 
-  addMarker(hangars[city].center, map, image1, hangars[city].title);
+
+  addMarkerIcon(hangars[city].center, map, image1, hangars[city].title);
 
     var radiusOptions = {
-      strokeColor: '#ff9100',
+      strokeColor: '#4F35DA',
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: '#ff9100',
+      fillColor: '#88AFEA',
       fillOpacity: 0.5,
       map: map,
       center: hangars[city].center,
@@ -102,7 +94,7 @@ function initialize() {
 
 
   for (var point in droppoints) {
-    addMarker(droppoints[point].center, map, image2 , droppoints[point].title);
+    addMarker(droppoints[point].center, map , droppoints[point].title);
 
   }
 
