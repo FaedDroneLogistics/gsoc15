@@ -4,7 +4,7 @@
 		<Style id="faed_drone">
 			<IconStyle>
 				<Icon>
-					<href>http://172.26.17.106:8000/static/img/faeddrone100x100.png</href>
+					<href>http://localhost:8000/static/img/faeddrone100x100.png</href>
 					<scale>1.0</scale>
 				</Icon>
 			</IconStyle>

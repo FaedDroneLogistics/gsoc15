@@ -23,4 +23,4 @@ http://172.26.17.106:8000/static/kml/droppoint_24.kml
 http://172.26.17.106:8000/static/kml/droppoint_23.kml
 http://172.26.17.106:8000/static/kml/droppoint_22.kml
 http://172.26.17.106:8000/static/kml/droppoint_19.kml
-http://172.26.17.106:8000/static/kml/droppoint_29.kml
+http://172.26.17.106:8000/static/kml/hangar_24.kml

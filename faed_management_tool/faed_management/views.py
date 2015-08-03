@@ -1,4 +1,4 @@
-import os, forms, models
+import os, forms, models, json, urllib2
 
 from kmls_management.models import Kml
 from faed_management.static.py_func.sendtoLG import transfer, a
@@ -198,9 +198,9 @@ def edit_hangar(request, id):
             hangar.drone.save()
             hangar.save()
             create_kml(hangar, "hangar", "edit")
+
             a()
             transfer()
-
 
             return HttpResponseRedirect('/hangars')
 
@@ -248,6 +248,10 @@ def create_kml(item, type, action):
     if action == 'create':
         Kml(name=name, url="static/kml/" + name).save()
 
+    if type == 'hangar':
+        hangar_influence(item)
+
+
 def delete_kml(id, type):
     filename = type + "_" + str(id) + ".kml"
     path = os.path.dirname(__file__) + "/static/kml/"
@@ -257,5 +261,19 @@ def delete_kml(id, type):
         if filename in files[2]:
             os.remove(path + filename)
             Kml.objects.get(name=filename).delete()
+            if type == 'hangar':
+                os.remove(path + "hangar_" + str(id) + "_inf.kml")
             return
 
+
+
+def hangar_influence(hangar):
+    name = "hangar_" + str(hangar.id) + "_inf.kml"
+    path = os.path.dirname(__file__) + "/static/kml/" + name
+
+    data = {"altitude": hangar.altitude, "lat": hangar.latitude, "lon": hangar.longitude, "radius": hangar.radius}
+    req = urllib2.Request('http://localhost:8080/GeoProjection/api/circle')
+    req.add_header('Content-Type', 'application/json')
+    response = urllib2.urlopen(req, json.dumps(data)).read()
+    circle_points = json.loads(response)
+    kml_generator.circle_kml(circle_points['points'], path)

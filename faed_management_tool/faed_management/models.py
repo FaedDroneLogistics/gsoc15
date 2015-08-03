@@ -27,7 +27,7 @@ class Drone(models.Model):
     origin_lon = models.FloatField(null=True)
     destination_lat = models.FloatField(null=True)
     destination_lon = models.FloatField(null=True)
-    #altitude = models.FloatField(default=50)
+    # altitude = models.FloatField(default=50)
     emergency = models.CharField(max_length=50, null=True)
     battery_life = models.PositiveSmallIntegerField(default=100)
     style_url = models.ForeignKey(StyleURL)
