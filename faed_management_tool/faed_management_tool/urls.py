@@ -61,4 +61,7 @@ urlpatterns = [
     url(r'^droneform/$', views.submit_drone),
     url(r'^drone/(?P<drone_plate>\w+)/$', drone_detail),
 
+
+    url(r'^incidence/$',TemplateView.as_view(template_name='incidence.html')),
+
 ]
