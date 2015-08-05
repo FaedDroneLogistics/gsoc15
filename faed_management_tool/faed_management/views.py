@@ -1,7 +1,7 @@
 import os, sys, forms, models, json, urllib2
 
-from django.contrib.gis.measure import D
-from django.contrib.gis.geos.point import Point
+#from django.contrib.gis.measure import D
+#from django.contrib.gis.geos.point import Point
 from kmls_management.models import Kml
 from faed_management.static.py_func.sendtoLG import transfer, a
 from kmls_management import kml_generator
@@ -283,6 +283,7 @@ def hangar_influence(hangar):
 
 
 # Geo functions
+'''
 def find_emergency_path(lat, lon):
     distance = -1
     last_distance = sys.maxint
@@ -296,3 +297,4 @@ def find_emergency_path(lat, lon):
         if distance < last_distance:
             last_distance = distance
             selected_droppoint = droppoint
+'''
