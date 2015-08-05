@@ -1,7 +1,7 @@
 import os, sys, forms, models, json, urllib2
 
-#from django.contrib.gis.measure import D
-#from django.contrib.gis.geos.point import Point
+from django.contrib.gis.measure import D
+from django.contrib.gis.geos.point import Point
 from kmls_management.models import Kml
 from faed_management.static.py_func.sendtoLG import transfer, a
 from kmls_management import kml_generator
@@ -17,14 +17,17 @@ from faed_management.forms import HangarForm, MeteoStationForm, DropPointForm, S
 class HangarsList(ListView):
     model = Hangar
 
+
 class HangarsView(ListView):
     template_name = 'hangars.html'
     context_object_name = 'hangars'
     queryset = models.Hangar.objects.all()
     success_url = "/hangars"
 
+
 class MeteoStationsList(ListView):
     model = MeteoStation
+
 
 class MeteoStationsView(ListView):
     template_name = 'meteostations.html'
@@ -32,8 +35,10 @@ class MeteoStationsView(ListView):
     queryset = models.MeteoStation.objects.all()
     success_url = "/meteostations"
 
+
 class DropPointsList(ListView):
     model = DropPoint
+
 
 class DropPointsView(ListView):
     template_name = 'droppoints.html'
@@ -52,10 +57,11 @@ def submit_styleurl(request):
             styleurl.save()
 
             return HttpResponseRedirect('/')
-        else:
-            form = forms.StyleURLForm()
+    else:
+        form = forms.StyleURLForm()
 
     return render(request, 'styleurl_form.html', {'form': form})
+
 
 def submit_droppoint(request):
     if request.method == 'POST':
@@ -69,10 +75,11 @@ def submit_droppoint(request):
             transfer()
 
             return HttpResponseRedirect('/droppoints/')
-        else:
-            form = forms.DropPointForm()
+    else:
+        form = forms.DropPointForm()
 
     return render(request, 'droppoint_form.html', {'form': form})
+
 
 def submit_drone(request):
     if request.method == 'POST':
@@ -82,10 +89,11 @@ def submit_drone(request):
             drone = form.save(commit=False)
             drone.save()
             return HttpResponseRedirect('/hangars/')
-        else:
-            form = forms.DroneForm()
+    else:
+        form = forms.DroneForm()
 
         return render(request, 'drone_form.html', {'form': form})
+
 
 def submit_hangar(request):
     if request.method == 'POST':
@@ -95,7 +103,7 @@ def submit_hangar(request):
             hangar = form.save(commit=False)
             hangar.drone.origin_lat = hangar.latitude
             hangar.drone.origin_lon = hangar.longitude
-            #drone.altitude = altitude
+            # drone.altitude = altitude
             hangar.drone.save()
             hangar.save()
             create_kml(hangar, "hangar", "create")
@@ -103,10 +111,11 @@ def submit_hangar(request):
             transfer()
 
             return HttpResponseRedirect('/hangars/')
-        else:
-            form = forms.HangarForm()
+    else:
+        form = forms.HangarForm()
 
     return render(request, 'hangar_form.html', {'form': form})
+
 
 def submit_meteostation(request):
     if request.method == 'POST':
@@ -120,8 +129,8 @@ def submit_meteostation(request):
             transfer()
 
             return HttpResponseRedirect('/meteostations/')
-        else:
-            form = forms.MeteoStationForm()
+    else:
+        form = forms.MeteoStationForm()
 
     return render(request, 'meteostation_form.html', {'form': form})
 
@@ -131,9 +140,11 @@ class HangarViewSet(viewsets.ModelViewSet):
     queryset = models.Hangar.objects.all()
     serializer_class = HangarSerializer
 
+
 class DropPointViewSet(viewsets.ModelViewSet):
     queryset = models.DropPoint.objects.all()
     serializer_class = DropPointSerializer
+
 
 class MeteoStationViewSet(viewsets.ModelViewSet):
     queryset = models.MeteoStation.objects.all()
@@ -147,11 +158,13 @@ def delete_hangar(request, id):
     hangar.delete()
     return HttpResponseRedirect('/hangars/')
 
+
 def delete_droppoint(request, id):
     droppoint = DropPoint.objects.get(pk=id)
     delete_kml(droppoint.id, "droppoint")
     droppoint.delete()
     return HttpResponseRedirect('/droppoints/')
+
 
 def delete_meteostation(request, id):
     meteostation = MeteoStation.objects.get(pk=id)
@@ -160,11 +173,11 @@ def delete_meteostation(request, id):
     return HttpResponseRedirect('/meteostations/')
 
 
-#Edit items
+# Edit items
 def edit_styleurl(request, id):
     requested_styleurl = StyleURL.objects.get(pk=id)
     form = StyleURLForm(instance=requested_styleurl)
-    if request.method =='POST':
+    if request.method == 'POST':
         form = StyleURLForm(request.POST, instance=requested_styleurl)
         if form.is_valid():
             styleurl = form.save(commit=False)
@@ -174,10 +187,11 @@ def edit_styleurl(request, id):
 
     return render(request, 'styleurl_form.html', {'form': form})
 
+
 def edit_drone(request, id):
     requested_drone = Drone.objects.get(pk=id)
     form = DroneForm(instance=requested_drone)
-    if request.method =='POST':
+    if request.method == 'POST':
         form = DroneForm(request.POST, instance=requested_drone)
         if form.is_valid():
             drone = form.save(commit=False)
@@ -187,16 +201,17 @@ def edit_drone(request, id):
 
     return render(request, 'drone_form.html', {'form': form})
 
+
 def edit_hangar(request, id):
     requested_hangar = Hangar.objects.get(pk=id)
     form = HangarForm(instance=requested_hangar)
-    if request.method =='POST':
+    if request.method == 'POST':
         form = HangarForm(request.POST, instance=requested_hangar)
         if form.is_valid():
             hangar = form.save(commit=False)
             hangar.drone.origin_lat = hangar.latitude
             hangar.drone.origin_lon = hangar.longitude
-            #drone.altitude = altitude
+            # drone.altitude = altitude
             hangar.drone.save()
             hangar.save()
             create_kml(hangar, "hangar", "edit")
@@ -206,7 +221,8 @@ def edit_hangar(request, id):
 
             return HttpResponseRedirect('/hangars')
 
-    return render(request, 'hangar_form.html',{'form':form})
+    return render(request, 'hangar_form.html', {'form': form})
+
 
 def edit_meteostation(request, id):
     requested_meteo = MeteoStation.objects.get(pk=id)
@@ -223,6 +239,7 @@ def edit_meteostation(request, id):
             return HttpResponseRedirect('/meteostations')
 
     return render(request, 'meteostation_form.html', {'form': form})
+
 
 def edit_droppoint(request, id):
     requested_droppoint = DropPoint.objects.get(pk=id)
@@ -252,8 +269,9 @@ def create_kml(item, type, action):
 
     if type == 'hangar':
         name_influence = hangar_influence(item)
-    if action == 'create':
-        Kml(name=name_influence, url="static/kml/" + name_influence).save()
+        if action == 'create':
+            Kml(name=name_influence, url="static/kml/" + name_influence).save()
+
 
 def delete_kml(id, type):
     filename = type + "_" + str(id) + ".kml"
@@ -267,6 +285,7 @@ def delete_kml(id, type):
             if type == 'hangar':
                 os.remove(path + "hangar_" + str(id) + "_inf.kml")
             return
+
 
 def hangar_influence(hangar):
     name = "hangar_" + str(hangar.id) + "_inf.kml"
@@ -283,18 +302,27 @@ def hangar_influence(hangar):
 
 
 # Geo functions
-'''
 def find_emergency_path(lat, lon):
-    distance = -1
     last_distance = sys.maxint
+    all_hangars = models.Hangar.objects.all()
+    selected_hangar = None
     all_droppoints = models.DropPoint.objects.all()
     selected_droppoint = None
-    last_droppoint = None
-    emergency_location = Point(lon, lat)
+    point_location = Point(lon, lat)
 
     for droppoint in all_droppoints:
-        distance = D(m=emergency_location.distance(Point(droppoint.longitude, droppoint.latitude)))
-        if distance < last_distance:
+        distance = D(m=point_location.distance(Point(droppoint.longitude, droppoint.latitude)))
+        print type(distance)
+        if distance.m < last_distance:
             last_distance = distance
             selected_droppoint = droppoint
-'''
+
+    point_location = Point(selected_droppoint.longitude, selected_droppoint.latitude)
+    for hangar in all_hangars:
+        distance = D(m=point_location.distance(Point(hangar.longitude, hangar.latitude)))
+        if distance < last_distance:
+            last_distance = distance
+            selected_hangar = hangar
+
+    # print selected_hangar.name, selected_droppoint.name
+    return selected_hangar, selected_droppoint
