@@ -1,5 +1,7 @@
-import os, forms, models, json, urllib2
+import os, sys, forms, models, json, urllib2
 
+from django.contrib.gis.measure import D
+from django.contrib.gis.geos.point import Point
 from kmls_management.models import Kml
 from faed_management.static.py_func.sendtoLG import transfer, a
 from kmls_management import kml_generator
@@ -50,8 +52,8 @@ def submit_styleurl(request):
             styleurl.save()
 
             return HttpResponseRedirect('/')
-    else:
-        form = forms.StyleURLForm()
+        else:
+            form = forms.StyleURLForm()
 
     return render(request, 'styleurl_form.html', {'form': form})
 
@@ -67,8 +69,8 @@ def submit_droppoint(request):
             transfer()
 
             return HttpResponseRedirect('/droppoints/')
-    else:
-        form = forms.DropPointForm()
+        else:
+            form = forms.DropPointForm()
 
     return render(request, 'droppoint_form.html', {'form': form})
 
@@ -80,10 +82,10 @@ def submit_drone(request):
             drone = form.save(commit=False)
             drone.save()
             return HttpResponseRedirect('/hangars/')
-    else:
-        form = forms.DroneForm()
+        else:
+            form = forms.DroneForm()
 
-    return render(request, 'drone_form.html', {'form': form})
+        return render(request, 'drone_form.html', {'form': form})
 
 def submit_hangar(request):
     if request.method == 'POST':
@@ -101,8 +103,8 @@ def submit_hangar(request):
             transfer()
 
             return HttpResponseRedirect('/hangars/')
-    else:
-        form = forms.HangarForm()
+        else:
+            form = forms.HangarForm()
 
     return render(request, 'hangar_form.html', {'form': form})
 
@@ -118,8 +120,8 @@ def submit_meteostation(request):
             transfer()
 
             return HttpResponseRedirect('/meteostations/')
-    else:
-        form = forms.MeteoStationForm()
+        else:
+            form = forms.MeteoStationForm()
 
     return render(request, 'meteostation_form.html', {'form': form})
 
@@ -250,10 +252,8 @@ def create_kml(item, type, action):
 
     if type == 'hangar':
         name_influence = hangar_influence(item)
-        if action == 'create':
-            Kml(name=name_influence, url="static/kml/" + name_influence).save()
-
-
+    if action == 'create':
+        Kml(name=name_influence, url="static/kml/" + name_influence).save()
 
 def delete_kml(id, type):
     filename = type + "_" + str(id) + ".kml"
@@ -268,8 +268,6 @@ def delete_kml(id, type):
                 os.remove(path + "hangar_" + str(id) + "_inf.kml")
             return
 
-
-
 def hangar_influence(hangar):
     name = "hangar_" + str(hangar.id) + "_inf.kml"
     path = os.path.dirname(__file__) + "/static/kml/" + name
@@ -282,3 +280,19 @@ def hangar_influence(hangar):
     kml_generator.circle_kml(circle_points['points'], path)
 
     return name
+
+
+# Geo functions
+def find_emergency_path(lat, lon):
+    distance = -1
+    last_distance = sys.maxint
+    all_droppoints = models.DropPoint.objects.all()
+    selected_droppoint = None
+    last_droppoint = None
+    emergency_location = Point(lon, lat)
+
+    for droppoint in all_droppoints:
+        distance = D(m=emergency_location.distance(Point(droppoint.longitude, droppoint.latitude)))
+        if distance < last_distance:
+            last_distance = distance
+            selected_droppoint = droppoint

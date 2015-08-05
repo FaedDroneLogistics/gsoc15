@@ -16,5 +16,5 @@ def a():
     file = open("faed_management/static/kml/kmls.txt",'w')
 
     for i in Kml.objects.filter(visibility=True):
-        file.write("http://172.26.17.106:8000/"+i.url+"\n")
+        file.write("http://172.26.17.106:8000"+i.url+"\n")
 
