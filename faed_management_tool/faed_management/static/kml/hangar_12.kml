@@ -15,7 +15,7 @@
 			<styleUrl>faed_drone</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.638476655799,41.6024309434,13.207299735</coordinates>
+				<coordinates>0.638476655799,41.6024309434,500.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

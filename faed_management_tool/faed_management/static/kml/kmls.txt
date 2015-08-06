@@ -29,3 +29,4 @@ http://172.26.17.230:8000static/kml/hangar_12_inf.kml
 http://172.26.17.230:8000static/kml/hangar_13_inf.kml
 http://172.26.17.230:8000static/kml/hangar_14_inf.kml
 http://172.26.17.230:8000static/kml/meteo_25.kml
+http://172.26.17.230:8000static/kml/hangar_26_inf.kml

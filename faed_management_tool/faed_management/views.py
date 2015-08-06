@@ -1,17 +1,25 @@
-import os, sys, forms, models, json, urllib2
+import os
+import sys
 
 from django.contrib.gis.measure import D
 from django.contrib.gis.geos.point import Point
-from kmls_management.models import Kml
-from faed_management.static.py_func.sendtoLG import transfer, a
-from kmls_management import kml_generator
 from django.views.generic import ListView
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from rest_framework import viewsets
+
+import forms
+import models
+from kmls_management.models import Kml
+from faed_management.static.py_func.sendtoLG import transfer, a
+from kmls_management import kml_generator
 from serializers import HangarSerializer, DropPointSerializer, MeteoStationSerializer
 from faed_management.models import Hangar, DropPoint, MeteoStation, StyleURL, Drone
 from faed_management.forms import HangarForm, MeteoStationForm, DropPointForm, StyleURLForm, DroneForm
+
+import simplekml
+from polycircles import polycircles
+
 
 # List items
 class HangarsList(ListView):
@@ -291,12 +299,32 @@ def hangar_influence(hangar):
     name = "hangar_" + str(hangar.id) + "_inf.kml"
     path = os.path.dirname(__file__) + "/static/kml/" + name
 
-    data = {"altitude": hangar.altitude, "lat": hangar.latitude, "lon": hangar.longitude, "radius": hangar.radius}
-    req = urllib2.Request('http://localhost:8080/GeoProjection/api/circle')
-    req.add_header('Content-Type', 'application/json')
-    response = urllib2.urlopen(req, json.dumps(data)).read()
-    circle_points = json.loads(response)
-    kml_generator.circle_kml(circle_points['points'], path)
+    polycircle = polycircles.Polycircle(latitude=hangar.latitude,
+                                        longitude=hangar.longitude,
+                                        radius=hangar.radius*5,
+                                        number_of_vertices=36)
+    points_list = polycircle.to_lat_lon()
+    latlonalt = []
+    for tuple in points_list:
+        tup = (tuple[1], tuple[0], hangar.altitude)
+        latlonalt.append(tup)
+
+    kml = simplekml.Kml(open=1)
+    shape_polycircle = kml.newmultigeometry(name=hangar.name)
+    pol = shape_polycircle.newpolygon()
+    pol.outerboundaryis = latlonalt
+
+    pol.altitudemode = simplekml.AltitudeMode.relativetoground
+    pol.extrude = 5
+    pol.style.polystyle.color = simplekml.Color.changealphaint(200, simplekml.Color.darksalmon)
+    pol.style.linestyle.color = simplekml.Color.changealphaint(230, simplekml.Color.darkred)
+
+    '''
+    pol = kml.newpolygon(name=hangar.description, outerboundaryis=polycircle.to_kml())
+    pol.style.polystyle.color = simplekml.Color.changealphaint(200, simplekml.Color.darksalmon)
+    '''
+    kml.save(path)
+
 
     return name
 

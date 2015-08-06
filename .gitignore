@@ -5,7 +5,7 @@
 *.log
 *.pyc
 *.pyo
-*.db.sqlite3
+faed_management_tool/db.sqlite3
 
 *.iws
 *Db.properties
