@@ -62,6 +62,6 @@ urlpatterns = [
     url(r'^drone/(?P<drone_plate>\w+)/$', drone_detail),
 
 
-    url(r'^incidence/$',TemplateView.as_view(template_name='incidence.html')),
+    url(r'^incidence/$', views.find_emergency_path),
 
 ]

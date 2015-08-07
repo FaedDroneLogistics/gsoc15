@@ -330,27 +330,33 @@ def hangar_influence(hangar):
 
 
 # Geo functions
-def find_emergency_path(lat, lon):
+def find_emergency_path(request):
+    lat = request.GET.get('lat', '')
+    lon = request.GET.get('lng', '')
+
+    print lat, lon
+
     last_distance = sys.maxint
     all_hangars = models.Hangar.objects.all()
     selected_hangar = None
     all_droppoints = models.DropPoint.objects.all()
     selected_droppoint = None
-    point_location = Point(lon, lat)
+    point_location = Point(float(lon), float(lat))
 
     for droppoint in all_droppoints:
         distance = D(m=point_location.distance(Point(droppoint.longitude, droppoint.latitude)))
         print type(distance)
         if distance.m < last_distance:
-            last_distance = distance
+            last_distance = distance.m
             selected_droppoint = droppoint
 
+    last_distance = sys.maxint
     point_location = Point(selected_droppoint.longitude, selected_droppoint.latitude)
     for hangar in all_hangars:
         distance = D(m=point_location.distance(Point(hangar.longitude, hangar.latitude)))
-        if distance < last_distance:
-            last_distance = distance
+        if distance.m < last_distance:
+            last_distance = distance.m
             selected_hangar = hangar
 
-    # print selected_hangar.name, selected_droppoint.name
+    print selected_hangar.name, selected_droppoint.name
     return selected_hangar, selected_droppoint
