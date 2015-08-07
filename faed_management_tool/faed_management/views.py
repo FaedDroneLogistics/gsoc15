@@ -5,13 +5,13 @@ from django.contrib.gis.measure import D
 from django.contrib.gis.geos.point import Point
 from django.views.generic import ListView
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from rest_framework import viewsets
 
 import forms
 import models
 from kmls_management.models import Kml
-from faed_management.static.py_func.sendtoLG import transfer, a
+from faed_management.static.py_func.sendtoLG import syncKmlsToGalaxy, syncKmlsFile
 from kmls_management import kml_generator
 from serializers import HangarSerializer, DropPointSerializer, MeteoStationSerializer
 from faed_management.models import Hangar, DropPoint, MeteoStation, StyleURL, Drone
@@ -79,8 +79,8 @@ def submit_droppoint(request):
             droppoint = form.save(commit=False)
             droppoint.save()
             create_kml(droppoint, "droppoint", "create")
-            a()
-            transfer()
+            syncKmlsFile()
+            syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/droppoints/')
     else:
@@ -115,8 +115,8 @@ def submit_hangar(request):
             hangar.drone.save()
             hangar.save()
             create_kml(hangar, "hangar", "create")
-            a()
-            transfer()
+            syncKmlsFile()
+            syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/hangars/')
     else:
@@ -133,9 +133,8 @@ def submit_meteostation(request):
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "create")
-            a()
-            transfer()
-
+            syncKmlsFile()
+            syncKmlsToGalaxy()
             return HttpResponseRedirect('/meteostations/')
     else:
         form = forms.MeteoStationForm()
@@ -224,8 +223,8 @@ def edit_hangar(request, id):
             hangar.save()
             create_kml(hangar, "hangar", "edit")
 
-            a()
-            transfer()
+            syncKmlsFile()
+            syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/hangars')
 
@@ -241,9 +240,8 @@ def edit_meteostation(request, id):
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "edit")
-            a()
-            transfer()
-
+            syncKmlsFile()
+            syncKmlsToGalaxy()
             return HttpResponseRedirect('/meteostations')
 
     return render(request, 'meteostation_form.html', {'form': form})
@@ -258,8 +256,8 @@ def edit_droppoint(request, id):
             droppoint = form.save(commit=False)
             droppoint.save()
             create_kml(droppoint, "droppoint", "edit")
-            a()
-            transfer()
+            syncKmlsFile()
+            syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/droppoints')
 
@@ -316,8 +314,8 @@ def hangar_influence(hangar):
 
     pol.altitudemode = simplekml.AltitudeMode.relativetoground
     pol.extrude = 5
-    pol.style.polystyle.color = simplekml.Color.changealphaint(200, simplekml.Color.darksalmon)
-    pol.style.linestyle.color = simplekml.Color.changealphaint(230, simplekml.Color.darkred)
+    pol.style.polystyle.color = '00ff00ff'
+    pol.style.linestyle.color = '0000ff00'
 
     '''
     pol = kml.newpolygon(name=hangar.description, outerboundaryis=polycircle.to_kml())
@@ -359,4 +357,5 @@ def find_emergency_path(request):
             selected_hangar = hangar
 
     print selected_hangar.name, selected_droppoint.name
-    return selected_hangar, selected_droppoint
+
+    return HttpResponse(selected_hangar)

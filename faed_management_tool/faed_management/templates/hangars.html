@@ -9,13 +9,22 @@
         {% for hangar in object_list %}
             <div class="col s4">
                 <div class="card">
-                    <div class="card-content">
+                    <div class="card-image">
+                            <img src="/static/img/cappont.jpg">
+                            <span class="card-title">Cappont</span>
 
-                        <h4 class="activator grey-text text-darken-4"><a class="btn-floating btn waves-effect waves-light red" ><i class="material-icons">visibility</i></a>
-                        {{ hangar.name }}<i class="material-icons right">more_vert</i></h4>
+                    </div>
+                        {% if hangar.is_available %}
+                                                <div class="card-content green">
+
+                        {% else %}
+                                                <div class="card-content red">
+
+                        {% endif %}
+                        <h4 class="activator grey-text text-darken-4">
+                        {{ hangar.name }}<i class="material-icons right">settings</i></h4>
                         <p><strong>RADIUS:</strong> {{ hangar.radius }}</p>
-                        <p>STATUS: {{ hangar.is_available }}</p>
-                        <p>DRONE: {{ hangar.drone }}</p>
+                        <p><strong>DRONE:</strong> {{ hangar.drone }}</p>
 
                     </div>
                     <div class="card-reveal">
