@@ -42,8 +42,7 @@ var image2 = {
 
   };
 var markers = [];
-var marker_test=[];
-
+var circles = [];
 
 
 var hangars = {};
@@ -76,20 +75,8 @@ function initialize() {
 
 
   addMarkerIcon(hangars[city].center, map, image1, hangars[city].title);
+  addCircle(hangars[city].center, map, hangars[city].title, hangars[city].radius);
 
-    var radiusOptions = {
-      strokeColor: '#4F35DA',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#88AFEA',
-      fillOpacity: 0.5,
-      map: map,
-      center: hangars[city].center,
-      radius: Math.sqrt(hangars[city].radius) * 100
-
-    };
-    // Add the circle for this city to the map.
-    cityCircle = new google.maps.Circle(radiusOptions);
   }
 
 
@@ -124,7 +111,6 @@ $('.meteostations').on('click', function(){
         for(var i=0;i<markers.length;i++){
             if(markers[i].title =="droppoint"){
                 markers[i].setVisible(false);
-                testingjquery();
             }
         }
             $el.attr('data-selected', true)
@@ -140,7 +126,6 @@ $('.meteostations').on('click', function(){
 
 
     $('.hangar').on('click', function(){
-
         var $el = $(this);
         var isSelected = $el.attr('data-selected');
 
@@ -150,13 +135,26 @@ $('.meteostations').on('click', function(){
                 markers[i].setVisible(false);
             }
         }
+         for(var i=0;i<circles.length;i++){
+            if(circles[i].title =="hangar"){
+                circles[i].setVisible(false);
+            }
+        }
+
             $el.attr('data-selected', true)
         }else{
- for(var i=0;i<markers.length;i++){
+        for(var i=0;i<markers.length;i++){
             if(markers[i].title =="hangar"){
                 markers[i].setVisible(true);
             }
-        }            $el.attr('data-selected', false)
+        }
+         for(var i=0;i<circles.length;i++){
+            if(circles[i].title =="hangar"){
+                circles[i].setVisible(true);
+            }
+        }
+
+                 $el.attr('data-selected', false)
         }
 
     })

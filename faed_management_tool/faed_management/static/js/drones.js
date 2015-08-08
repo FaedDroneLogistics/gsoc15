@@ -16,6 +16,24 @@ console.log(map);
   setAllMap(map);
 }
 
+function addCircle(location, map, title, radius){
+
+ var radiusOptions = {
+      strokeColor: '#4F35DA',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#88AFEA',
+      fillOpacity: 0.5,
+      map: map,
+      title: title,
+      center: location,
+      radius: Math.sqrt(radius) * 100
+    };
+    // Add the circle for this city to the map.
+    cityCircle = new google.maps.Circle(radiusOptions);
+    circles.push(cityCircle)
+}
+
 
 // Add a marker to the map and push to the array.
 function addMarkerIcon(location, map, image,title) {
