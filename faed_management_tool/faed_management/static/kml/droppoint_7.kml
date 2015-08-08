@@ -10,8 +10,8 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DropPoint1</name>
-			<description>DropPoint1 in Lleida</description>
+			<name>DP1</name>
+			<description>C Prat de la Riba, n 15</description>
 			<styleUrl>drop_point</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>

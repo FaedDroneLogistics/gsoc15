@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DropPoint2</name>
-			<description>Drop Point 2 in Lleida</description>
+			<name>DP2</name>
+			<description>Carrer de Jaume II, 65, 25001 Lleida</description>
 			<styleUrl>drop_point</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.642570713748,41.604102851,18.7377186029</coordinates>
+				<coordinates>0.623885,41.609171,180.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

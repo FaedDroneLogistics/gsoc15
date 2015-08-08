@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DropPoint3</name>
-			<description>Drop Point 3 in Lleida</description>
+			<name>DP3</name>
+			<description>Passarel.la del Liceu Escolar, 25001 Lleida</description>
 			<styleUrl>drop_point</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.646008913966,41.6041859049,3.4765118134</coordinates>
+				<coordinates>0.626611,41.611858,180.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

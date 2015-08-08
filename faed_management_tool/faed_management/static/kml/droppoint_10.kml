@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DropPoint4</name>
-			<description>Drop Point 4 in Lleida</description>
+			<name>DP4</name>
+			<description>Rambla Arago, 39, 25003 Lleida</description>
 			<styleUrl>drop_point</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.642722934572,41.6007965713,11.7647649473</coordinates>
+				<coordinates>0.620357,41.615091,180.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

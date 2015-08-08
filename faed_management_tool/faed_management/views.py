@@ -256,8 +256,8 @@ def edit_droppoint(request, id):
             droppoint = form.save(commit=False)
             droppoint.save()
             create_kml(droppoint, "droppoint", "edit")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            #syncKmlsFile()
+            #syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/droppoints')
 
