@@ -74,6 +74,7 @@ $.getJSON( url, function( data ) {
         hangar[val.id] = {
   center: new google.maps.LatLng(val.latitude, val.longitude),
   radius: val.radius,
+  availability: val.is_available,
   title:"hangar"
 };
 
@@ -102,7 +103,8 @@ $.getJSON( url, function( data ) {
     $.each( results, function (key,val){
         console.log(val)
         droppoint[val.name] = {
-  center: new google.maps.LatLng(val.latitude, val.longitude),
+    center: new google.maps.LatLng(val.latitude, val.longitude),
+    availability: val.is_available,
   title:"droppoint"
 };
 

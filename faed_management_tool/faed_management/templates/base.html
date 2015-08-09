@@ -61,7 +61,7 @@ function initialize() {
 
   // Create the map.
   var mapOptions = {
-    zoom: 15,
+    zoom: 13,
     center: new google.maps.LatLng(41.617147, 0.624870),
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
@@ -72,16 +72,18 @@ function initialize() {
   // Construct the circle for each value in hangar.
   // Note: We scale the area of the circle based on the radius.
   for (var city in hangars) {
-
-
-  addMarkerIcon(hangars[city].center, map, image1, hangars[city].title);
+        if (hangars[city].availability){
+          addMarkerIcon(hangars[city].center, map, image1, hangars[city].title);
   addCircle(hangars[city].center, map, hangars[city].title, hangars[city].radius);
+  }
 
   }
 
 
   for (var point in droppoints) {
+  if(droppoints[point].availability){
     addMarker(droppoints[point].center, map , droppoints[point].title);
+    }
 
   }
 
