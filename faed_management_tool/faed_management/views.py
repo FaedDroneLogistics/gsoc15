@@ -331,25 +331,20 @@ def hangar_influence(hangar):
 # Geo functions
 def find_emergency_path(request):
 
-    MAX_WIND_SPEED = 10
+    MAX_WIND_SPEED = 10.0
 
     url = 'http://api.openweathermap.org/data/2.5/weather?q=Lleida&units=metric'
     response = requests.get(url=url)
     data = json.loads(response.text)
 
-    if data['wind']['speed'] >= MAX_WIND_SPEED:
-        return HttpResponse(status=503)
-
     try:
-        if not bool(data['rain']):
+        if bool(data['rain']) or data['wind']['speed'] >= MAX_WIND_SPEED:
             return HttpResponse(status=503)
     except KeyError:
         pass
 
     lat = request.GET.get('lat', '')
     lon = request.GET.get('lng', '')
-
-    print lat, lon
 
     last_distance = sys.maxint
     all_hangars = models.Hangar.objects.all()
