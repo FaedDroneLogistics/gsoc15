@@ -1,5 +1,7 @@
 import os
 import sys
+import json
+import requests
 
 from django.contrib.gis.measure import D
 from django.contrib.gis.geos.point import Point
@@ -323,12 +325,27 @@ def hangar_influence(hangar):
     '''
     kml.save(path)
 
-
     return name
 
 
 # Geo functions
 def find_emergency_path(request):
+
+    MAX_WIND_SPEED = 10
+
+    url = 'http://api.openweathermap.org/data/2.5/weather?q=Lleida&units=metric'
+    response = requests.get(url=url)
+    data = json.loads(response.text)
+
+    if data['wind']['speed'] >= MAX_WIND_SPEED:
+        return HttpResponse(status=503)
+
+    try:
+        if not bool(data['rain']):
+            return HttpResponse(status=503)
+    except KeyError:
+        pass
+
     lat = request.GET.get('lat', '')
     lon = request.GET.get('lng', '')
 
@@ -343,7 +360,6 @@ def find_emergency_path(request):
 
     for droppoint in all_droppoints:
         distance = D(m=point_location.distance(Point(droppoint.longitude, droppoint.latitude)))
-        print type(distance)
         if distance.m < last_distance:
             last_distance = distance.m
             selected_droppoint = droppoint
@@ -358,4 +374,4 @@ def find_emergency_path(request):
 
     print selected_hangar.name, selected_droppoint.name
 
-    return HttpResponse(selected_hangar)
+    return HttpResponse(status=201)
