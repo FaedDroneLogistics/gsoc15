@@ -7,19 +7,23 @@
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 <div class="row">
-                    <div class="input-field col s6">
-                        {{ form.name.error }}
+                    <div class="input-field col l6">
                         <i class="material-icons prefix">open_with</i>
                         <label for="name" data-error="wrong" data-success="right">Nom</label>
+                        {{ form.name.error }}
                         {{ form.name }}
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col l3">
                         {% if form.is_available.value %}
                             <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3" checked="checked">
                         {% else  %}
                             <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3">
                         {% endif %}
                         <label for="is_available">Availability</label>
+                    </div>
+                    <div class="input-field col l3 m12 s12">
+                        {{ form.city }}
+                        <a class="material-icons" href="/cityform" target="_blank">add</a>
                     </div>
                 </div>
                 <div class="row">
@@ -54,16 +58,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col l6">
+                        <i class="material-icons prefix">mode_edit</i>
                         <label for="description">Description</label>
                         {{ form.description }}
                     </div>
 
-                    <button class="waves-effect waves-light btn-large" name="action" type="submit">
+
+                </div>
+                <button class="waves-effect waves-light btn-large" name="action" type="submit">
                         <i class="material-icons right">send</i>Guardar
                     </button>
-                </div>
             </form>
         </div>
     </div>
+
 {% endblock content %}
