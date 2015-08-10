@@ -97,8 +97,8 @@ def submit_droppoint(request):
             droppoint = form.save(commit=False)
             droppoint.save()
             create_kml(droppoint, "droppoint", "create")
-            #syncKmlsFile()
-            #syncKmlsToGalaxy()
+            syncKmlsFile()
+            syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/droppoints/')
     else:
@@ -151,8 +151,8 @@ def submit_meteostation(request):
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "create")
-            #syncKmlsFile()
-            #syncKmlsToGalaxy()
+            syncKmlsFile()
+            syncKmlsToGalaxy()
             return HttpResponseRedirect('/meteostations/')
     else:
         form = forms.MeteoStationForm()
@@ -275,7 +275,7 @@ def edit_droppoint(request, id):
             droppoint.save()
             create_kml(droppoint, "dropoint", "edit")
             syncKmlsFile()
-            #syncKmlsToGalaxy()
+            syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/droppoints')
 
