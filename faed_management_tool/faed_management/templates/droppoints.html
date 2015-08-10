@@ -5,7 +5,9 @@
     <div class="container">
         <h2>Droppoints</h2>
         <div class="row">
-            {% for droppoints in object_list %}
+            {% for city, droppoints_list in droppoints_city.iteritems %}
+            <p>{{city}}</p>
+            {% for droppoints in droppoints_list %}
                 <div class="col l2 m6 s12">
                     {% if droppoints.is_available %}
 
@@ -28,7 +30,7 @@
                 </div>
 
 
-
+            {% endfor %}
             {% endfor %}
 
                                     <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">

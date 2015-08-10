@@ -6,7 +6,9 @@
 
     <h2>Hangars</h2>
     <div class="row">
-        {% for hangar in object_list %}
+        {% for city, hangars in hangars_city.iteritems %}
+        <p>{{city}}</p>
+        {% for hangar in hangars %}
             <div class="col s4">
                 <div class="card">
                     <div class="card-image">
@@ -37,7 +39,8 @@
                     </div>
                 </div>
             </div>
-        {% endfor %}
+        {% endfor %}{% endfor %}
+
     </div>
 
     <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">

@@ -14,8 +14,12 @@
                         <label for="name" data-error="wrong" data-success="right">Name</label>
                         {{ form.name }}
                     </div>
-                    <div class="input-field col l4 s12">
-                        <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3">
+                    <div class="input-field col l3">
+                        {% if form.is_available.value %}
+                            <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3" checked="checked">
+                        {% else  %}
+                            <input id="is_available" name="is_available" type="checkbox" class="validate teal-text text-darken-3">
+                        {% endif %}
                         <label for="is_available">Availability</label>
                     </div>
                 </div>

@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DP1 </name>
-			<description>Carrer de Jaume II, 67, 25001 Lleida</description>
+			<name>Lleida</name>
+			<description>Lleida</description>
 			<styleUrl>droppoint</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.623768,41.60903,180.0</coordinates>
+				<coordinates>0.6068769,41.6067232,200.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

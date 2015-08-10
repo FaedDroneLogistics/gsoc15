@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"
+    xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Folder>
+        <Placemark>
+            <Style id="pushpin">
+                <IconStyle id="mystyle">
+                    <Icon>
+                        <href>http://www.lookintoit.org/images/drone%20icon.jpg</href>
+                        <scale>1.0</scale>
+                    </Icon>
+                </IconStyle>
+            </Style>
+            <gx:Track>
+                <gx:altitudeMode>relativeToGround</gx:altitudeMode>
+                <when>2010-05-28T02:02:09Z</when>
+                <when>2010-05-28T02:02:35Z</when>
+                <when>2010-05-28T02:02:44Z</when>
+                <when>2010-05-28T02:02:53Z</when>
+                <when>2010-05-28T02:02:54Z</when>
+                <when>2010-05-28T02:02:55Z</when>
+                <when>2010-05-28T02:02:56Z</when>
+                <when>2010-05-28T02:03:09Z</when>
+                <when>2010-05-28T02:03:35Z</when>
+                <when>2010-05-28T02:03:44Z</when>
+                <when>2010-05-28T02:03:53Z</when>
+                <when>2010-05-28T02:03:54Z</when>
+                <when>2010-05-28T02:03:55Z</when>
+                <when>2010-05-28T02:03:56Z</when>
+                <when>2010-05-28T02:04:09Z</when>
+                <when>2010-05-28T02:04:35Z</when>
+                <when>2010-05-28T02:04:44Z</when>
+                <when>2010-05-28T02:04:53Z</when>
+                <when>2010-05-28T02:04:54Z</when>
+                <when>2010-05-28T02:04:55Z</when>
+                <when>2010-05-28T02:04:56Z</when>
+                <gx:coord>-122.207881 37.371915 0.000000</gx:coord>
+                <gx:coord>-122.207881 37.371915 10.000000</gx:coord>
+                <gx:coord>-122.207881 37.371915 20.000000</gx:coord>
+                <gx:coord>-122.207881 37.371915 30.000000</gx:coord>
+                <gx:coord>-122.207881 37.371915 40.000000</gx:coord>
+                <gx:coord>-122.207881 37.371915 50.000000</gx:coord>
+                <gx:coord>-122.207881 37.371915 60.000000</gx:coord>
+                <gx:coord>-122.207881 37.371915 60.000000</gx:coord>
+                <gx:coord>-122.205712 37.373288 60.000000</gx:coord>
+                <gx:coord>-122.204678 37.373939 60.000000</gx:coord>
+                <gx:coord>-122.203572 37.374630 60.000000</gx:coord>
+                <gx:coord>-122.203451 37.374706 60.000000</gx:coord>
+                <gx:coord>-122.203329 37.374780 60.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 60.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 60.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 50.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 40.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 30.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 20.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 10.000000</gx:coord>
+                <gx:coord>-122.203207 37.374857 0.000000</gx:coord>
+            </gx:Track>
+        </Placemark>
+    </Folder> 
+</kml>

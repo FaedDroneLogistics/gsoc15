@@ -40,13 +40,15 @@ urlpatterns = [
 
     url(r'^styleurlform/$', views.submit_styleurl),
 
-    url(r'^hangars/$', HangarsView.as_view(), name='hangars-list'),
+    # url(r'^hangars/$', HangarsView.as_view(), name='hangars-list'),
+    url(r'^hangars/$', views.hangar_per_city, name='hangar-list'),
+    url(r'^hangar_list/$', HangarsList.as_view()),
     url(r'^hangars/delete_hangar/(?P<id>\w+)/$', views.delete_hangar),
     url(r'^hangars/edit_hangar/(?P<id>\w+)/$', views.edit_hangar),
-    url(r'^hangar_list/$', HangarsList.as_view()),
     url(r'^hangarform/$', views.submit_hangar),
 
-    url(r'^droppoints/$', DropPointsView.as_view(), name='droppoint-list'),
+    # url(r'^droppoints/$', DropPointsView.as_view(), name='droppoint-list'),
+    url(r'^droppoints/$', views.droppoint_per_city, name='droppoint-list'),
     url(r'^droppoints/delete_droppoint/(?P<id>\w+)/$', views.delete_droppoint),
     url(r'^droppoints/edit_droppoint/(?P<id>\w+)/$', views.edit_droppoint),
     url(r'^droppoint_list/$', DropPointsList.as_view()),
@@ -55,7 +57,8 @@ urlpatterns = [
     url(r'^cityform/$', views.submit_city),
 
 
-    url(r'^meteostations/$', MeteoStationsView.as_view(), name='meteostations_list'),
+    # url(r'^meteostations/$', MeteoStationsView.as_view(), name='meteostations_list'),
+    url(r'^meteostations/$', views.meteostations_per_city, name='meteostations_list'),
     url(r'^meteostations/delete_meteostation/(?P<id>\w+)/$', views.delete_meteostation),
     url(r'^meteostations/edit_meteostation/(?P<id>\w+)/$', views.edit_meteostation),
     url(r'^meteostations_list/$', MeteoStationsList.as_view()),

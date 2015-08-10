@@ -27,13 +27,26 @@ from polycircles import polycircles
 class HangarsList(ListView):
     model = Hangar
 
-
 class HangarsView(ListView):
     template_name = 'hangars.html'
     context_object_name = 'hangars'
     queryset = models.Hangar.objects.all()
     success_url = "/hangars"
 
+def hangar_per_city(request):
+    hangars = models.Hangar.objects.all()
+    cities = models.City.objects.all()
+
+    sorted_dict = {}
+
+    for hangar in hangars:
+        try:
+            sorted_dict[hangar.city].append(hangar)
+        except KeyError:
+            sorted_dict[hangar.city] = [hangar]
+
+    print sorted_dict
+    return render(request, 'hangars.html', {'cities':cities, 'hangars_city': sorted_dict})
 
 class MeteoStationsList(ListView):
     model = MeteoStation
@@ -45,6 +58,20 @@ class MeteoStationsView(ListView):
     queryset = models.MeteoStation.objects.all()
     success_url = "/meteostations"
 
+def meteostations_per_city(request):
+    meteostations = models.MeteoStation.objects.all()
+    cities = models.City.objects.all()
+
+    sorted_dict = {}
+
+    for meteostation in meteostations:
+        try:
+            sorted_dict[meteostation.city].append(meteostation)
+        except KeyError:
+            sorted_dict[meteostation.city] = [meteostation]
+
+    print sorted_dict
+    return render(request, 'meteostations.html', {'cities':cities, 'meteostations_city': sorted_dict})
 
 class DropPointsList(ListView):
     model = DropPoint
@@ -56,7 +83,20 @@ class DropPointsView(ListView):
     queryset = models.DropPoint.objects.all()
     success_url = "/droppoints"
 
+def droppoint_per_city(request):
+    droppoints = models.DropPoint.objects.all()
+    cities = models.City.objects.all()
 
+    sorted_dict = {}
+
+    for droppoint in droppoints:
+        try:
+            sorted_dict[droppoint.city].append(droppoint)
+        except KeyError:
+            sorted_dict[droppoint.city] = [droppoint]
+
+    print sorted_dict
+    return render(request, 'droppoints.html', {'cities':cities, 'droppoints_city': sorted_dict})
 # Forms
 
 def submit_city(request):
@@ -146,8 +186,9 @@ def submit_hangar(request):
 def submit_meteostation(request):
     if request.method == 'POST':
         form = forms.MeteoStationForm(request.POST)
-
+        print 'Bitch'
         if form.is_valid():
+            print 'Prosti'
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "create")
@@ -155,8 +196,8 @@ def submit_meteostation(request):
             syncKmlsToGalaxy()
             return HttpResponseRedirect('/meteostations/')
     else:
-        form = forms.MeteoStationForm()
 
+        form = forms.MeteoStationForm()
     return render(request, 'meteostation_form.html', {'form': form})
 
 
@@ -239,6 +280,7 @@ def edit_hangar(request, id):
             # drone.altitude = altitude
             hangar.drone.save()
             hangar.save()
+            print hangar.name, hangar.id
             create_kml(hangar, "hangar", "edit")
 
             syncKmlsFile()
@@ -284,6 +326,7 @@ def edit_droppoint(request, id):
 
 # Support functions
 def create_kml(item, type, action):
+    print item.name, item.id
     name = type + "_" + str(item.id) + ".kml"
     path = os.path.dirname(__file__) + "/static/kml/" + name
     kml_generator.placemark_kml(item, path)
@@ -300,24 +343,36 @@ def create_kml(item, type, action):
 def delete_kml(id, type):
     filename = type + "_" + str(id) + ".kml"
     path = os.path.dirname(__file__) + "/static/kml/"
-    print filename
+    # print filename
     for files in os.walk(path):
-        print files
+        # print files
         if filename in files[2]:
-            os.remove(path + filename)
             Kml.objects.get(name=filename).delete()
+            os.remove(path + filename)
+            print path + filename
             if type == 'hangar':
-                os.remove(path + "hangar_" + str(id) + "_inf.kml")
+                filename_inf = type + "_" + str(id) + "_inf.kml"
+                print filename_inf
+                if filename_inf in files[2]:
+                    print 'Prostituta de carretera'
+                    Kml.objects.get(name=filename_inf).delete()
+                    os.remove(path + filename_inf)
+
+            syncKmlsFile()
+            syncKmlsToGalaxy()
+
             return
 
 
 def hangar_influence(hangar):
+    print hangar.name, hangar.id
     name = "hangar_" + str(hangar.id) + "_inf.kml"
+    print name
     path = os.path.dirname(__file__) + "/static/kml/" + name
 
     polycircle = polycircles.Polycircle(latitude=hangar.latitude,
                                         longitude=hangar.longitude,
-                                        radius=hangar.radius*5,
+                                        radius=hangar.radius,
                                         number_of_vertices=36)
     points_list = polycircle.to_lat_lon()
     latlonalt = []
@@ -330,10 +385,12 @@ def hangar_influence(hangar):
     pol = shape_polycircle.newpolygon()
     pol.outerboundaryis = latlonalt
 
-    pol.altitudemode = simplekml.AltitudeMode.relativetoground
+    pol.altitudemode = simplekml.AltitudeMode.absolute
     pol.extrude = 5
-    pol.style.polystyle.color = '00ff00ff'
-    pol.style.linestyle.color = '0000ff00'
+    pol.style.polystyle.color = '22ff0000'
+    pol.style.polystyle.fill = 1
+    pol.style.polystyle.outline = 1
+    pol.style.linestyle.width = 5
 
     '''
     pol = kml.newpolygon(name=hangar.description, outerboundaryis=polycircle.to_kml())

@@ -4,7 +4,9 @@
 
 <h2>MeteoStations</h2>
     <div class="row">
-        {% for meteostations in object_list %}
+        {% for city, meteostations_list in meteostations_city.iteritems %}
+        <p>{{city}}</p>
+        {% for meteostations in meteostations_list %}
             <div class="col s3">
                 <div class="card">
 
@@ -12,7 +14,7 @@
                         <img class="activator" src="http://vignette1.wikia.nocookie.net/zelda/images/2/23/Pikachu_colored_by_puppet_sasori-d56ia33.png/revision/latest?cb=20130902233824&path-prefix=es" style="width:20%; height:20%">
 
                         <h3 class="activator grey-text text-darken-4">{{ meteostations.name }}<i class="material-icons right">more_vert</i></h3>
-                        <p>STATUS: {{droppoints.is_available }}</p>
+                        <p>STATUS: {{meteostations.is_available }}</p>
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">Drones<i class="material-icons right">close</i></span>
@@ -22,6 +24,7 @@
                     </div>
                 </div>
             </div>
+        {% endfor %}
         {% endfor %}
 
         <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
 	<Document>
-		<Style id="faed_drone">
+		<Style id="droppoint">
 			<IconStyle>
 				<Icon>
 					<href>http://localhost:8000/static/img/faeddrone100x100.png</href>
@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>Hangar1</name>
-			<description>Drone for Hangar1</description>
-			<styleUrl>faed_drone</styleUrl>
+			<name>DropPoint Lleida</name>
+			<description>Lleida</description>
+			<styleUrl>droppoint</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.626684076164,41.6173974885,500.0</coordinates>
+				<coordinates>2.0,1.0,300.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

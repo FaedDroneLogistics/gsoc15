@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
 	<Document>
-		<Style id="drop_point">
+		<Style id="droppoint">
 			<IconStyle>
 				<Icon>
-					<href>http://www.mavinci.de/images/icon3.png</href>
+					<href>http://localhost:8000/static/img/faeddrone100x100.png</href>
 					<scale>1.0</scale>
 				</Icon>
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DP2</name>
-			<description>Carrer de Jaume II, 65, 25001 Lleida</description>
-			<styleUrl>drop_point</styleUrl>
+			<name>DropPoint Tarragona 2</name>
+			<description>Tarragona 2</description>
+			<styleUrl>droppoint</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.623885,41.609171,180.0</coordinates>
+				<coordinates>0.0,9.0,400.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

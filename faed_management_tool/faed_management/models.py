@@ -71,13 +71,13 @@ class MeteoStation(models.Model):
     is_available = models.BooleanField(default=True)
     style_url = models.ForeignKey(StyleURL)
 
-    tmp_now = models.FloatField()
-    tmp_max = models.FloatField()
-    tmp_min = models.FloatField()
-    humidity = models.FloatField()
-    precipitation = models.FloatField()
-    pressure = models.FloatField()
-    wind = models.FloatField()
+    tmp_now = models.FloatField(default=0.0)
+    tmp_max = models.FloatField(default=0.0)
+    tmp_min = models.FloatField(default=0.0)
+    humidity = models.FloatField(default=0.0)
+    precipitation = models.FloatField(default=0.0)
+    pressure = models.FloatField(default=0.0)
+    wind = models.FloatField(default=0.0)
 
     city = models.ForeignKey(City)
 
