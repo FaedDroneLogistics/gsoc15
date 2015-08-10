@@ -18,7 +18,7 @@ def placemark_kml(placemark, filename):
                        + "\t\t\t<description>" + placemark.description + "</description>\n"
                        + "\t\t\t<styleUrl>" + placemark.style_url.name.lower().replace(" ", "_") + "</styleUrl>\n"
                        + "\t\t\t<Point>\n"
-                       + "\t\t\t\t<altitudeMode>absolute</altitudeMode>\n"
+                       + "\t\t\t\t<altitudeMode>relativeToGround</altitudeMode>\n"
                        + "\t\t\t\t<coordinates>"
                        + str(placemark.longitude) + "," + str(placemark.latitude) + "," + str(placemark.altitude)
                        + "</coordinates>\n"

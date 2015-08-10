@@ -133,8 +133,8 @@ def submit_hangar(request):
             hangar.drone.save()
             hangar.save()
             create_kml(hangar, "hangar", "create")
-            #syncKmlsFile()
-            #syncKmlsToGalaxy()
+            syncKmlsFile()
+            syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/hangars/')
     else:
