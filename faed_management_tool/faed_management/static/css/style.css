@@ -51,3 +51,8 @@ html{
   left:0;
   }
 
+
+.header {
+    color: #f44336;
+    font-weight: 300;
+}

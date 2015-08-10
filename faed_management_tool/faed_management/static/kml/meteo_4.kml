@@ -10,12 +10,12 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DropPoint Tarragona 2</name>
-			<description>Tarragona 2</description>
+			<name>Technoline Ws 6750</name>
+			<description>1</description>
 			<styleUrl>droppoint</styleUrl>
 			<Point>
 				<altitudeMode>absolute</altitudeMode>
-				<coordinates>0.0,9.0,400.0</coordinates>
+				<coordinates>2.0,1.0,3.0</coordinates>
 			</Point>
 		</Placemark>
 	</Document>

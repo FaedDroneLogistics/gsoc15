@@ -46,15 +46,25 @@
                         <a class="material-icons" href="/cityform" target="_blank">add</a>
                     </div>
                 </div>
+
+                                <div id="map-canvas" style="height:300px; margin-bottom:5%;"></div>
+
+
                 <div class="row">
                     <div class="input-field col s6">
                         <label for="description">Description</label>
                         {{ form.description }}
                     </div>
-                    <button class="waves-effect waves-light btn-large" name="action" type="submit">
-                        <i class="material-icons right">send</i>Guardar
+                    <button class="waves-effect waves-light btn-large green" name="action" type="submit">
+                        <i class="material-icons right">send</i>Save
                     </button>
+                    <a href="/droppoints" class="waves-effect waves-light btn-large red">
+                        <i class="material-icons right">cancel</i>Cancel</a>
                 </div>
+
+                {% include "mapsForm.html" %}
+
+
             </form>
         </div>
     </div>

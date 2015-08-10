@@ -10,7 +10,7 @@
 			</IconStyle>
 		</Style>
 		<Placemark>
-			<name>DropPoint Tarragona</name>
+			<name>DP1</name>
 			<description>Tarragona</description>
 			<styleUrl>droppoint</styleUrl>
 			<Point>

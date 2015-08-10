@@ -2,36 +2,34 @@
 
 {% block content %}
 
-<h2>MeteoStations</h2>
-    <div class="row">
+    <div class="container">
         {% for city, meteostations_list in meteostations_city.iteritems %}
-        <p>{{city}}</p>
-        {% for meteostations in meteostations_list %}
-            <div class="col s3">
-                <div class="card">
+            <h2 class="header">{{city}}</h2>
+            <ul class="collection">
+                {% for meteostations in meteostations_list %}
+                {% if meteostations.is_available %}
 
-                    <div class="card-content">
-                        <img class="activator" src="http://vignette1.wikia.nocookie.net/zelda/images/2/23/Pikachu_colored_by_puppet_sasori-d56ia33.png/revision/latest?cb=20130902233824&path-prefix=es" style="width:20%; height:20%">
-
-                        <h3 class="activator grey-text text-darken-4">{{ meteostations.name }}<i class="material-icons right">more_vert</i></h3>
-                        <p>STATUS: {{meteostations.is_available }}</p>
+                <div class="row green" style="margin-bottom: 0px !important">
+                        {% else %}
+                <div class="row red">
+                        {% endif %}
+                    <div class="col l6">
+                        <h4 class="activator grey-text text-darken-4">{{ meteostations.name }}</h4>
                     </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Drones<i class="material-icons right">close</i></span>
-                        <p>Aqui hi haurà informació dels drons que té associat.</p>
-                        <a href="edit_meteostation/{{meteostations.id}}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
-                        <a class="btn-floating btn-large waves-effect waves-light red" onclick="Materialize.toast('<span>Are you sure?</span><a class=&quot;btn-flat yellow-text&quot; href=/meteostations/delete_meteostation/{{meteostations.id}}>Delete<a>', 5000)"><i class="material-icons">delete</i></a>
-                    </div>
+                    <div class="col l6" style="margin-top:6px;">
+                        <a style="float:right;margin-right:6px;" class="btn-floating btn-large waves-effect waves-light blue-grey darken-4 square" onclick="Materialize.toast('<span>Are you sure?</span><a class=&quot;btn-flat yellow-text&quot; href=/meteostations/delete_meteostation/{{meteostations.id}}>Delete<a>', 5000)"><i class="material-icons" >delete</i></a>
+                        <a href="edit_meteostation/{{meteostations.id}}" class=" square btn-floating btn-large waves-effect waves-light blue-grey darken-4" style="float:right;margin-right:6px;"><i class="material-icons">mode_edit</i></a>
+                     </div>
                 </div>
-            </div>
-        {% endfor %}
+                        {% endfor %}
+
+            </ul>
+
         {% endfor %}
 
-        <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">
-            <a class="btn-floating btn-large waves-effect waves-light red" href="/meteostationform">
-                <i class="large material-icons">add</i>
-            </a>
-        </div>
+       <div class="fixed-action-btn" style="bottom: 60px; right: 24px;">
+                    <a class="btn-floating btn-large waves-effect waves-light amber darken-1 square" href="/meteostationform"><i class="large material-icons">add</i></a>
+                </div>
     </div>
 
 {% endblock content %}
