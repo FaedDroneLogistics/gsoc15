@@ -1,5 +1,15 @@
 from django.db import models
 
+class City(models.Model):
+
+    name = models.CharField(max_length=100)
+    lat = models.FloatField(default='0')
+    lng = models.FloatField(default='0')
+
+    def __unicode__(self):
+        return str(self.name)
+
+
 class StyleURL(models.Model):
     name = models.CharField(max_length=50)
     href = models.URLField()
@@ -16,6 +26,7 @@ class DropPoint(models.Model):
     altitude = models.FloatField()
     is_available = models.BooleanField(default=True)
     style_url = models.ForeignKey(StyleURL)
+    city = models.ForeignKey(City)
 
     def __unicode__(self):
         return str(self.name)
@@ -46,6 +57,7 @@ class Hangar(models.Model):
     style_url = models.ForeignKey(StyleURL)
     drop_points = models.ManyToManyField(DropPoint)
     drone = models.ForeignKey(Drone)
+    city = models.ForeignKey(City)
 
     def __unicode__(self):
         return str(self.name)
@@ -58,8 +70,16 @@ class MeteoStation(models.Model):
     altitude = models.FloatField()
     is_available = models.BooleanField(default=True)
     style_url = models.ForeignKey(StyleURL)
-    temperature = models.FloatField()
-    wind_speed = models.FloatField()
+
+    tmp_now = models.FloatField()
+    tmp_max = models.FloatField()
+    tmp_min = models.FloatField()
+    humidity = models.FloatField()
+    precipitation = models.FloatField()
+    pressure = models.FloatField()
+    wind = models.FloatField()
+
+    city = models.ForeignKey(City)
 
     def __unicode__(self):
         return str(self.name)

@@ -47,12 +47,30 @@ function addMarkerIcon(location, map, image,title) {
 }
 
 // Add a marker to the map and push to the array.
-function addMarker(location, map,title) {
+function addMarker(location, map,title,name, description) {
+console.log(location);
   var marker = new google.maps.Marker({
     position: location,
     map: map,
     title: title,
   });
+var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h5 id="firstHeading" class="firstHeading">'+name+'</h5>'+
+      '<div id="bodyContent">'+
+      '<p>'+description+'</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+
   markers.push(marker);
 }
 
@@ -105,6 +123,8 @@ $.getJSON( url, function( data ) {
         droppoint[val.name] = {
     center: new google.maps.LatLng(val.latitude, val.longitude),
     availability: val.is_available,
+    description: val.description,
+    name: val.name,
   title:"droppoint"
 };
 

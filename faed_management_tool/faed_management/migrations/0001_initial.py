@@ -11,16 +11,25 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='City',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=100)),
+                ('lat', models.FloatField(default=b'0')),
+                ('lng', models.FloatField(default=b'0')),
+            ],
+        ),
+        migrations.CreateModel(
             name='Drone',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=50)),
                 ('plate', models.CharField(max_length=50)),
-                ('origin_lat', models.FloatField(blank=True)),
-                ('origin_lon', models.FloatField(blank=True)),
-                ('destination_lat', models.FloatField(blank=True)),
-                ('destination_lon', models.FloatField(blank=True)),
-                ('emergency', models.CharField(max_length=50, blank=True)),
+                ('origin_lat', models.FloatField(null=True)),
+                ('origin_lon', models.FloatField(null=True)),
+                ('destination_lat', models.FloatField(null=True)),
+                ('destination_lon', models.FloatField(null=True)),
+                ('emergency', models.CharField(max_length=50, null=True)),
                 ('battery_life', models.PositiveSmallIntegerField(default=100)),
             ],
         ),
@@ -34,6 +43,7 @@ class Migration(migrations.Migration):
                 ('longitude', models.FloatField()),
                 ('altitude', models.FloatField()),
                 ('is_available', models.BooleanField(default=True)),
+                ('city', models.ForeignKey(to='faed_management.City')),
             ],
         ),
         migrations.CreateModel(
@@ -47,6 +57,7 @@ class Migration(migrations.Migration):
                 ('altitude', models.FloatField()),
                 ('radius', models.FloatField()),
                 ('is_available', models.BooleanField(default=True)),
+                ('city', models.ForeignKey(to='faed_management.City')),
                 ('drone', models.ForeignKey(to='faed_management.Drone')),
                 ('drop_points', models.ManyToManyField(to='faed_management.DropPoint')),
             ],
@@ -61,8 +72,14 @@ class Migration(migrations.Migration):
                 ('longitude', models.FloatField()),
                 ('altitude', models.FloatField()),
                 ('is_available', models.BooleanField(default=True)),
-                ('temperature', models.FloatField()),
-                ('wind_speed', models.FloatField()),
+                ('tmp_now', models.FloatField()),
+                ('tmp_max', models.FloatField()),
+                ('tmp_min', models.FloatField()),
+                ('humidity', models.FloatField()),
+                ('precipitation', models.FloatField()),
+                ('pressure', models.FloatField()),
+                ('wind', models.FloatField()),
+                ('city', models.ForeignKey(to='faed_management.City')),
             ],
         ),
         migrations.CreateModel(

@@ -8,6 +8,12 @@ class StyleURLForm(forms.ModelForm):
         exclude = []
 
 
+class CityForm(forms.ModelForm):
+
+    class Meta:
+        model = models.City
+        exclude = ['lat', 'lng']
+
 class DropPointForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea(attrs={'class':'materialize-textarea'}));
 
@@ -32,7 +38,7 @@ class MeteoStationForm(forms.ModelForm):
 
     class Meta:
         model = models.MeteoStation
-        exclude = []
+        exclude = ['temp_now','tmp_max','tmp_min','humidity','precipitation','pressure','wind']
 
 
 #class MeteoStationForm(forms.Form):

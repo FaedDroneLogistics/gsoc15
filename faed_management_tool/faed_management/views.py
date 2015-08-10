@@ -58,6 +58,22 @@ class DropPointsView(ListView):
 
 
 # Forms
+
+def submit_city(request):
+    if request.method == 'POST':
+        form = forms.CityForm(request.POST)
+
+        if form.is_valid():
+            city = form.save(commit=False)
+            city.save()
+
+            return HttpResponseRedirect('/')
+    else:
+        form = forms.CityForm()
+
+    return render(request, 'city_form.html', {'form': form})
+
+
 def submit_styleurl(request):
     if request.method == 'POST':
         form = forms.StyleURLForm(request.POST)
@@ -81,8 +97,8 @@ def submit_droppoint(request):
             droppoint = form.save(commit=False)
             droppoint.save()
             create_kml(droppoint, "droppoint", "create")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            #syncKmlsFile()
+            #syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/droppoints/')
     else:
@@ -117,8 +133,8 @@ def submit_hangar(request):
             hangar.drone.save()
             hangar.save()
             create_kml(hangar, "hangar", "create")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            #syncKmlsFile()
+            #syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/hangars/')
     else:
@@ -135,8 +151,8 @@ def submit_meteostation(request):
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "create")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            #syncKmlsFile()
+            #syncKmlsToGalaxy()
             return HttpResponseRedirect('/meteostations/')
     else:
         form = forms.MeteoStationForm()
@@ -257,8 +273,8 @@ def edit_droppoint(request, id):
         if form.is_valid():
             droppoint = form.save(commit=False)
             droppoint.save()
-            create_kml(droppoint, "droppoint", "edit")
-            #syncKmlsFile()
+            create_kml(droppoint, "dropoint", "edit")
+            syncKmlsFile()
             #syncKmlsToGalaxy()
 
             return HttpResponseRedirect('/droppoints')

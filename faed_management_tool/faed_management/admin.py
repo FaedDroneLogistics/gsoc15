@@ -12,5 +12,6 @@ admin.site.register(models.StyleURL)
 admin.site.register(models.DropPoint)
 admin.site.register(models.Drone)
 admin.site.register(models.Hangar)
+admin.site.register(models.City)
 admin.site.register(models.MeteoStation)
 

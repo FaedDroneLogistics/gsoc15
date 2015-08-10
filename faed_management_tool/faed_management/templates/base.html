@@ -82,7 +82,7 @@ function initialize() {
 
   for (var point in droppoints) {
   if(droppoints[point].availability){
-    addMarker(droppoints[point].center, map , droppoints[point].title);
+    addMarker(droppoints[point].center, map , droppoints[point].title,droppoints[point].name, droppoints[point].description);
     }
 
   }
