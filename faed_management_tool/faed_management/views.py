@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import time
 import requests
 
 from django.contrib.gis.measure import D
@@ -433,6 +434,11 @@ def find_emergency_path(request):
 
     lat = request.GET.get('lat', '')
     lon = request.GET.get('lng', '')
+    path = os.path.dirname(__file__) + "/static/kml/incidence.kml"
+    kml_generator.create_emergency_marker(lat, lon, path)
+    Kml(name="incidence.kml", url="static/kml/incidence.kml", visibility=True).save()
+    syncKmlsFile()
+    syncKmlsToGalaxy()
 
     last_distance = sys.maxint
     all_hangars = models.Hangar.objects.all()
@@ -456,5 +462,13 @@ def find_emergency_path(request):
             selected_hangar = hangar
 
     print selected_hangar.name, selected_droppoint.name
+
+    time.sleep(10)
+    Kml.objects.get(name="incidence.kml").delete()
+    os.remove(path)
+    syncKmlsFile()
+    syncKmlsToGalaxy()
+
+    # TODO sleep, wait for drone to arrive, sleep, remove KMLS
 
     return HttpResponse(status=201)

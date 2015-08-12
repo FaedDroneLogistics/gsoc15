@@ -84,6 +84,34 @@ def create_droppoint_marker(placemark, filename):
                        + "\t</Placemark>\n"
                        + "</kml>")
 
+def create_emergency_marker(latitude, longitude, filename):
+    with open(filename, "w") as kml_file:
+        kml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                       + "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n"
+                       + "\t<Placemark>\n"
+                       + "\t\t<name>FAED</name>\n"
+                       + "\t\t<visibility>1</visibility>\n"
+                       + "\t\t<description>Incidence</description>\n"
+                       + "\t\t<Style>\n"
+                       + "\t\t\t<IconStyle>\n"
+                       + "\t\t\t\t<Icon>\n"
+                       + "\t\t\t\t\t<href>http://maps.google.com/mapfiles/kml/shapes/caution.png</href>\n"
+                       + "\t\t\t\t\t<scale>100</scale>\n"
+                       + "\t\t\t\t</Icon>\n"
+                       + "\t\t\t</IconStyle>\n"
+                       + "\t\t\t<LineStyle>\n"
+                       + "\t\t\t\t<width>2</width>\n"
+                       + "\t\t\t</LineStyle>\n"
+                       + "\t\t</Style>\n"
+                       + "\t\t<Point>\n"
+                       + "\t\t\t<extrude>1</extrude>\n"
+                       + "\t\t\t<altitudeMode>relativeToGround</altitudeMode>\n"
+                       + "\t\t\t<coordinates>" + str(longitude) + "," + str(latitude) + "," + str(200)
+                       + "</coordinates>\n"
+                       + "\t\t</Point>\n"
+                       + "\t</Placemark>\n"
+                       + "</kml>")
+
 def create_hangar_polygon(hangar, filename):
      with open(filename, "w") as kml_file:
         kml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"

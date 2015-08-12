@@ -17,17 +17,17 @@ def syncKmlsToGalaxy():
 
 
 def a():
-    p = subprocess.Popen("ifconfig getifaddr en5", shell=True, stdout=subprocess.PIPE)
+    p = subprocess.Popen("ifconfig getifaddr eth0", shell=True, stdout=subprocess.PIPE)
     ip_server = p.communicate()[0]
     file = open("faed_management/static/kml/kmls.txt",'w')
 
     for i in Kml.objects.filter(visibility=True):
-        file.write("http://172.26.17.230:8000"+i.url+"\n")
+        file.write("http://172.26.17.106:8000"+i.url+"\n")
 
 
 def syncKmlsFile():
 
-    p = subprocess.Popen("ipconfig getifaddr en5", shell=True, stdout=subprocess.PIPE)
+    p = subprocess.Popen("ifconfig eth0 | grep 'inet:' | cut -d: -f2 | awk '{print $1}'", shell=True, stdout=subprocess.PIPE)
     ip_server = p.communicate()[0]
 
     os.system("rm /tmp/kml/kmls.txt")
