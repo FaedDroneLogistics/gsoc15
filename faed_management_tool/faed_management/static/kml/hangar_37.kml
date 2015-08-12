@@ -10,8 +10,8 @@
 			</PolyStyle>
 		</Style>
 		<Placemark>
-			<name>La Bordeta</name>
-			<description>Carrer Arquitecte Gaudi, 1, 25001 Lleida</description>
+			<name>Cappont</name>
+			<description>Carrer Riu Besos, 11 25001 Lleida</description>
 			<styleUrl>#Red</styleUrl>
 			<Polygon>
 				<extrude>1</extrude>
@@ -19,11 +19,11 @@
 				<outerBoundaryIs>
 					<LinearRing>
 						<coordinates>
-							0.6440597,41.6038607,200.0
-							0.6440597,41.6039607,200.0
-							0.6441597,41.6039607,200.0
-							0.6441597,41.6038607,200.0
-							0.6440597,41.6038607,200.0
+							0.628821,41.608333,200.0
+							0.628821,41.608433,200.0
+							0.628921,41.608433,200.0
+							0.628921,41.608333,200.0
+							0.628821,41.608333,200.0
 						</coordinates>
 					</LinearRing>
 				</outerBoundaryIs>

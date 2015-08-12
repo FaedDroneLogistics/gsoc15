@@ -1,6 +1,6 @@
 __author__ = 'marc'
 
-import os
+import os, time
 from kmls_management.models import Kml
 import subprocess
 
@@ -8,7 +8,11 @@ import subprocess
 def syncKmlsToGalaxy():
     filePath = "/tmp/kml/kmls.txt"
     serverPath = "/var/www/html"
+    os.system("sshpass -p 'lqgalaxy' scp faed_management/static/kml/kmls.txt lg@172.26.17.21:"+serverPath)
+    print 'scp empty'
+    time.sleep(1)
     os.system("sshpass -p 'lqgalaxy' scp "+filePath+" lg@172.26.17.21:"+serverPath)
+    print 'scp kmls'
 
 
 
@@ -32,8 +36,5 @@ def syncKmlsFile():
 
     for i in Kml.objects.filter(visibility=True):
         file.write("http://"+ str(ip_server)[0:(len(ip_server)-1)]+":8000/static/kml/"+i.name+"\n")
-    print 'Write'
-    file.write("http://172.26.17.230:8000/static/kml/ex_from_earth.kml\n")
-    print 'Written'
 
     file.close()

@@ -27,7 +27,7 @@ function addCircle(location, map, title, radius){
       map: map,
       title: title,
       center: location,
-      radius: Math.sqrt(radius) * 100
+      radius: Math.sqrt(radius) * 28
     };
     // Add the circle for this city to the map.
     cityCircle = new google.maps.Circle(radiusOptions);

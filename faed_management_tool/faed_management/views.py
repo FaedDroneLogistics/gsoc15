@@ -186,9 +186,7 @@ def submit_hangar(request):
 def submit_meteostation(request):
     if request.method == 'POST':
         form = forms.MeteoStationForm(request.POST)
-        print 'Bitch'
         if form.is_valid():
-            print 'Prosti'
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "create")
@@ -283,6 +281,8 @@ def edit_hangar(request, id):
             print hangar.name, hangar.id
             create_kml(hangar, "hangar", "edit")
 
+
+
             syncKmlsFile()
             syncKmlsToGalaxy()
 
@@ -315,7 +315,7 @@ def edit_droppoint(request, id):
         if form.is_valid():
             droppoint = form.save(commit=False)
             droppoint.save()
-            create_kml(droppoint, "dropoint", "edit")
+            create_kml(droppoint, "droppoint", "edit")
             syncKmlsFile()
             syncKmlsToGalaxy()
 
@@ -326,18 +326,32 @@ def edit_droppoint(request, id):
 
 # Support functions
 def create_kml(item, type, action):
-    print item.name, item.id
+    # print item.name, item.id
     name = type + "_" + str(item.id) + ".kml"
     path = os.path.dirname(__file__) + "/static/kml/" + name
     kml_generator.placemark_kml(item, path)
 
+    if type == 'hangar':
+        kml_generator.create_hangar_polygon(item, path)
+    else:
+        kml_generator.create_droppoint_marker(item, path)
+
     if action == 'create':
         Kml(name=name, url="static/kml/" + name).save()
+    else:
+        # print name
+        kml_vis = Kml.objects.get(name=name)
+        kml_vis.visibility = item.is_available
+        kml_vis.save()
 
     if type == 'hangar':
         name_influence = hangar_influence(item)
         if action == 'create':
-            Kml(name=name_influence, url="static/kml/" + name_influence).save()
+            Kml(name=name_influence, url="static/kml/" + name_influence, visibility=item.is_available).save()
+        else:
+            kml_vis = Kml.objects.get(name=name_influence)
+            kml_vis.visibility = item.is_available
+            kml_vis.save()
 
 
 def delete_kml(id, type):
@@ -377,7 +391,7 @@ def hangar_influence(hangar):
     points_list = polycircle.to_lat_lon()
     latlonalt = []
     for tuple in points_list:
-        tup = (tuple[1], tuple[0], hangar.altitude)
+        tup = (tuple[1], tuple[0], 5)
         latlonalt.append(tup)
 
     kml = simplekml.Kml(open=1)
@@ -385,12 +399,13 @@ def hangar_influence(hangar):
     pol = shape_polycircle.newpolygon()
     pol.outerboundaryis = latlonalt
 
-    pol.altitudemode = simplekml.AltitudeMode.absolute
+    pol.altitudemode = simplekml.AltitudeMode.relativetoground
     pol.extrude = 5
     pol.style.polystyle.color = '22ff0000'
     pol.style.polystyle.fill = 1
     pol.style.polystyle.outline = 1
-    pol.style.linestyle.width = 5
+    pol.style.linestyle.width = 10
+    pol.style.linestyle.color = simplekml.Color.red
 
     '''
     pol = kml.newpolygon(name=hangar.description, outerboundaryis=polycircle.to_kml())

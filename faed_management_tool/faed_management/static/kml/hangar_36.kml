@@ -10,8 +10,8 @@
 			</PolyStyle>
 		</Style>
 		<Placemark>
-			<name>La Bordeta</name>
-			<description>Carrer Arquitecte Gaudi, 1, 25001 Lleida</description>
+			<name>Estacio Tren</name>
+			<description>Carrer Princep de Viana, 17, 25004 Lleida</description>
 			<styleUrl>#Red</styleUrl>
 			<Polygon>
 				<extrude>1</extrude>
@@ -19,11 +19,11 @@
 				<outerBoundaryIs>
 					<LinearRing>
 						<coordinates>
-							0.6440597,41.6038607,200.0
-							0.6440597,41.6039607,200.0
-							0.6441597,41.6039607,200.0
-							0.6441597,41.6038607,200.0
-							0.6440597,41.6038607,200.0
+							0.63228,41.620441,200.0
+							0.63228,41.620541,200.0
+							0.63238,41.620541,200.0
+							0.63238,41.620441,200.0
+							0.63228,41.620441,200.0
 						</coordinates>
 					</LinearRing>
 				</outerBoundaryIs>
