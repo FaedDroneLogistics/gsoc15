@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2">
-	<Document>
-		<Style id="Red">
-			<LineStyle>
-				<width>1.5</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>0ff000000</color>
-			</PolyStyle>
-		</Style>
-		<Placemark>
-			<name>PCiTAL</name>
-			<description>Avinguda de Galileo Galilei, 25194 Lleida</description>
-			<styleUrl>#Red</styleUrl>
-			<Polygon>
-				<extrude>1</extrude>
-				<altitudeMode>relativeToGround</altitudeMode>
-				<outerBoundaryIs>
-					<LinearRing>
-						<coordinates>
-							0.606404,41.604582,200.0
-							0.606404,41.604682,200.0
-							0.606504,41.604682,200.0
-							0.606504,41.604582,200.0
-							0.606404,41.604582,200.0
-						</coordinates>
-					</LinearRing>
-				</outerBoundaryIs>
-			</Polygon>
-		</Placemark>
-	</Document>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="feat_16">
+        <open>1</open>
+        <Placemark id="feat_17">
+            <Style id="stylesel_3">
+                <LineStyle id="substyle_7">
+                    <color>ff0000ff</color>
+                    <colorMode>normal</colorMode>
+                    <width>10</width>
+                </LineStyle>
+                <PolyStyle id="substyle_6">
+                    <color>22ff0000</color>
+                    <colorMode>normal</colorMode>
+                    <fill>1</fill>
+                    <outline>1</outline>
+                </PolyStyle>
+            </Style>
+            <name>PCiTAL</name>
+            <MultiGeometry id="geom_12">
+                <Polygon id="geom_13">
+                    <extrude>5</extrude>
+                    <altitudeMode>relativeToGround</altitudeMode>
+                    <outerBoundaryIs>
+                        <LinearRing id="geom_15">
+                            <coordinates>0.606404,41.6113347612,5 0.607966462236,41.6112321611,5 0.609481435369,41.610927479,5 0.610902874973,41.6104299752,5 0.612187581877,41.6097547705,5 0.613296515886,41.6089223856,5 0.614195982606,41.6079581176,5 0.614858657226,41.6068912704,5 0.615264414168,41.6057542638,5 0.615400937442,41.604581648,5 0.615264093336,41.6034090531,5 0.61485805426,41.602272107,5 0.614195170231,41.6012053524,5 0.613295592088,41.600241198,5 0.612186658079,41.599408934,5 0.610902062598,41.5987338428,5 0.609480832402,41.5982364317,5 0.607966141405,41.59793181,5 0.606404,41.5978292308,5 0.604841858595,41.59793181,5 0.603327167598,41.5982364317,5 0.601905937402,41.5987338428,5 0.600621341921,41.599408934,5 0.599512407912,41.600241198,5 0.598612829769,41.6012053524,5 0.59794994574,41.602272107,5 0.597543906664,41.6034090531,5 0.597407062558,41.604581648,5 0.597543585832,41.6057542638,5 0.597949342774,41.6068912704,5 0.598612017394,41.6079581176,5 0.599511484114,41.6089223856,5 0.600620418123,41.6097547705,5 0.601905125027,41.6104299752,5 0.603326564631,41.610927479,5 0.604841537764,41.6112321611,5</coordinates>
+                        </LinearRing>
+                    </outerBoundaryIs>
+                </Polygon>
+            </MultiGeometry>
+        </Placemark>
+    </Document>
 </kml>

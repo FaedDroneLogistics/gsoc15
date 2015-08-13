@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import time
 import requests
 
 from django.contrib.gis.measure import D
@@ -14,14 +13,11 @@ from rest_framework import viewsets
 import forms
 import models
 from kmls_management.models import Kml
-from faed_management.static.py_func.sendtoLG import syncKmlsToGalaxy, syncKmlsFile
+from faed_management.static.py_func.sendtoLG import sync_kmls_to_galaxy, sync_kmls_file
 from kmls_management import kml_generator
 from serializers import HangarSerializer, DropPointSerializer, MeteoStationSerializer
 from faed_management.models import Hangar, DropPoint, MeteoStation, StyleURL, Drone
 from faed_management.forms import HangarForm, MeteoStationForm, DropPointForm, StyleURLForm, DroneForm
-
-import simplekml
-from polycircles import polycircles
 
 
 # List items
@@ -138,8 +134,8 @@ def submit_droppoint(request):
             droppoint = form.save(commit=False)
             droppoint.save()
             create_kml(droppoint, "droppoint", "create")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            sync_kmls_file()
+            sync_kmls_to_galaxy()
 
             return HttpResponseRedirect('/droppoints/')
     else:
@@ -174,8 +170,8 @@ def submit_hangar(request):
             hangar.drone.save()
             hangar.save()
             create_kml(hangar, "hangar", "create")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            sync_kmls_file()
+            sync_kmls_to_galaxy()
 
             return HttpResponseRedirect('/hangars/')
     else:
@@ -191,8 +187,8 @@ def submit_meteostation(request):
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "create")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            sync_kmls_file()
+            sync_kmls_to_galaxy()
             return HttpResponseRedirect('/meteostations/')
     else:
 
@@ -282,10 +278,8 @@ def edit_hangar(request, id):
             print hangar.name, hangar.id
             create_kml(hangar, "hangar", "edit")
 
-
-
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            sync_kmls_file()
+            sync_kmls_to_galaxy()
 
             return HttpResponseRedirect('/hangars')
 
@@ -301,8 +295,8 @@ def edit_meteostation(request, id):
             meteostation = form.save(commit=False)
             meteostation.save()
             create_kml(meteostation, "meteo", "edit")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            sync_kmls_file()
+            sync_kmls_to_galaxy()
             return HttpResponseRedirect('/meteostations')
 
     return render(request, 'meteostation_form.html', {'form': form})
@@ -317,8 +311,8 @@ def edit_droppoint(request, id):
             droppoint = form.save(commit=False)
             droppoint.save()
             create_kml(droppoint, "droppoint", "edit")
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            sync_kmls_file()
+            sync_kmls_to_galaxy()
 
             return HttpResponseRedirect('/droppoints')
 
@@ -330,7 +324,7 @@ def create_kml(item, type, action):
     # print item.name, item.id
     name = type + "_" + str(item.id) + ".kml"
     path = os.path.dirname(__file__) + "/static/kml/" + name
-    kml_generator.placemark_kml(item, path)
+    # kml_generator.placemark_kml(item, path)
 
     if type == 'hangar':
         kml_generator.create_hangar_polygon(item, path)
@@ -346,7 +340,7 @@ def create_kml(item, type, action):
         kml_vis.save()
 
     if type == 'hangar':
-        name_influence = hangar_influence(item)
+        name_influence = kml_generator.hangar_influence(item, path)
         if action == 'create':
             Kml(name=name_influence, url="static/kml/" + name_influence, visibility=item.is_available).save()
         else:
@@ -364,57 +358,18 @@ def delete_kml(id, type):
         if filename in files[2]:
             Kml.objects.get(name=filename).delete()
             os.remove(path + filename)
-            print path + filename
+            # print path + filename
             if type == 'hangar':
                 filename_inf = type + "_" + str(id) + "_inf.kml"
                 print filename_inf
                 if filename_inf in files[2]:
-                    print 'Prostituta de carretera'
                     Kml.objects.get(name=filename_inf).delete()
                     os.remove(path + filename_inf)
 
-            syncKmlsFile()
-            syncKmlsToGalaxy()
+            sync_kmls_file()
+            sync_kmls_to_galaxy()
 
             return
-
-
-def hangar_influence(hangar):
-    print hangar.name, hangar.id
-    name = "hangar_" + str(hangar.id) + "_inf.kml"
-    print name
-    path = os.path.dirname(__file__) + "/static/kml/" + name
-
-    polycircle = polycircles.Polycircle(latitude=hangar.latitude,
-                                        longitude=hangar.longitude,
-                                        radius=hangar.radius,
-                                        number_of_vertices=36)
-    points_list = polycircle.to_lat_lon()
-    latlonalt = []
-    for tuple in points_list:
-        tup = (tuple[1], tuple[0], 5)
-        latlonalt.append(tup)
-
-    kml = simplekml.Kml(open=1)
-    shape_polycircle = kml.newmultigeometry(name=hangar.name)
-    pol = shape_polycircle.newpolygon()
-    pol.outerboundaryis = latlonalt
-
-    pol.altitudemode = simplekml.AltitudeMode.relativetoground
-    pol.extrude = 5
-    pol.style.polystyle.color = '22ff0000'
-    pol.style.polystyle.fill = 1
-    pol.style.polystyle.outline = 1
-    pol.style.linestyle.width = 10
-    pol.style.linestyle.color = simplekml.Color.red
-
-    '''
-    pol = kml.newpolygon(name=hangar.description, outerboundaryis=polycircle.to_kml())
-    pol.style.polystyle.color = simplekml.Color.changealphaint(200, simplekml.Color.darksalmon)
-    '''
-    kml.save(path)
-
-    return name
 
 
 # Geo functions
@@ -427,18 +382,16 @@ def find_emergency_path(request):
     data = json.loads(response.text)
 
     try:
-        if bool(data['rain']) or data['wind']['speed'] >= MAX_WIND_SPEED:
+        if data['wind']['speed'] >= MAX_WIND_SPEED:
+            print data['rain']
+            print data['wind']['speed']
             return HttpResponse(status=503)
     except KeyError:
         pass
 
     lat = request.GET.get('lat', '')
     lon = request.GET.get('lng', '')
-    path = os.path.dirname(__file__) + "/static/kml/incidence.kml"
-    kml_generator.create_emergency_marker(lat, lon, path)
-    Kml(name="incidence.kml", url="static/kml/incidence.kml", visibility=True).save()
-    syncKmlsFile()
-    syncKmlsToGalaxy()
+    path = os.path.dirname(__file__) + "/static/kml/"
 
     last_distance = sys.maxint
     all_hangars = models.Hangar.objects.all()
@@ -461,14 +414,28 @@ def find_emergency_path(request):
             last_distance = distance.m
             selected_hangar = hangar
 
-    print selected_hangar.name, selected_droppoint.name
+    print selected_hangar.name, selected_hangar.drone.name, selected_droppoint.name
 
-    time.sleep(10)
+    selected_hangar.drone.destination_lat = selected_droppoint.latitude
+    selected_hangar.drone.destination_lon = selected_droppoint.longitude
+
+    if not selected_hangar.is_available:
+        return HttpResponse(status=503)
+
+    kml_generator.create_emergency_marker(lat, lon, path + "incidence.kml")
+    Kml(name="incidence.kml", url="static/kml/incidence.kml", visibility=True).save()
+    # sync_kmls_file()
+    # sync_kmls_to_galaxy(emergency=True)
+    kml_generator.find_drone_path(selected_hangar, selected_droppoint, path)
+
+    for step in range(0, 33, 1):
+        Kml.objects.get(name="drone_" + str(step) + ".kml").delete()
+        os.remove(path + "drone_" + str(step) + ".kml")
+
     Kml.objects.get(name="incidence.kml").delete()
-    os.remove(path)
-    syncKmlsFile()
-    syncKmlsToGalaxy()
+    os.remove(path + "incidence.kml")
 
-    # TODO sleep, wait for drone to arrive, sleep, remove KMLS
+    # sync_kmls_file()
+    # sync_kmls_to_galaxy(emergency=True)
 
     return HttpResponse(status=201)

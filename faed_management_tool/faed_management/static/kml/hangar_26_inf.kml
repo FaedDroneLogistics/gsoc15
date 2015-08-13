@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
-    <Document id="feat_36">
+    <Document id="feat_6">
         <open>1</open>
-        <Placemark id="feat_37">
-            <Style id="stylesel_7">
-                <LineStyle id="substyle_15">
+        <Placemark id="feat_7">
+            <Style id="stylesel_1">
+                <LineStyle id="substyle_3">
                     <color>ff0000ff</color>
                     <colorMode>normal</colorMode>
                     <width>10</width>
                 </LineStyle>
-                <PolyStyle id="substyle_14">
+                <PolyStyle id="substyle_2">
                     <color>22ff0000</color>
                     <colorMode>normal</colorMode>
                     <fill>1</fill>
@@ -17,12 +17,12 @@
                 </PolyStyle>
             </Style>
             <name>La Seu Vella </name>
-            <MultiGeometry id="geom_28">
-                <Polygon id="geom_29">
+            <MultiGeometry id="geom_4">
+                <Polygon id="geom_5">
                     <extrude>5</extrude>
                     <altitudeMode>relativeToGround</altitudeMode>
                     <outerBoundaryIs>
-                        <LinearRing id="geom_31">
+                        <LinearRing id="geom_7">
                             <coordinates>0.6251358,41.6240642462,5 0.6266985695,41.6239616463,5 0.628213840551,41.6236569648,5 0.629635559669,41.6231594622,5 0.630920519181,41.6224842589,5 0.632029671216,41.6216518758,5 0.632929314752,41.62068761,5 0.633592119613,41.6196207651,5 0.633997956266,41.6184837611,5 0.634134506311,41.6173111478,5 0.633997635228,41.6161385555,5 0.633591516259,41.615001612,5 0.632928501855,41.6139348598,5 0.632028746823,41.6129707075,5 0.630919594788,41.6121384454,5 0.629634746771,41.6114633557,5 0.628213237197,41.6109659457,5 0.626698248462,41.6106613247,5 0.6251358,41.6105587458,5 0.623573351538,41.6106613247,5 0.622058362803,41.6109659457,5 0.620636853229,41.6114633557,5 0.619352005212,41.6121384454,5 0.618242853177,41.6129707075,5 0.617343098145,41.6139348598,5 0.616680083741,41.615001612,5 0.616273964772,41.6161385555,5 0.616137093689,41.6173111478,5 0.616273643734,41.6184837611,5 0.616679480387,41.6196207651,5 0.617342285248,41.62068761,5 0.618241928784,41.6216518758,5 0.619351080819,41.6224842589,5 0.620636040331,41.6231594622,5 0.622057759449,41.6236569648,5 0.6235730305,41.6239616463,5</coordinates>
                         </LinearRing>
                     </outerBoundaryIs>
