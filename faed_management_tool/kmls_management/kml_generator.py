@@ -239,6 +239,12 @@ def find_drone_path(hangar, droppoint, filename):
 
     lat = geo_point_origin[0]
     lon = geo_point_origin[1]
+    placemark_kml(hangar.drone,
+                  (geo_point_origin[0], geo_point_origin[1], altitude),
+                  filename + "drone_" + str(step) + ".kml")
+    Kml(name="drone_" + str(step) + ".kml", url="static/kml/drone_" + str(step) + ".kml", visibility=True).save()
+    step += 1
+    drone_to_galaxy()
 
     # Drone route
     while num_steps > 0:
@@ -251,7 +257,7 @@ def find_drone_path(hangar, droppoint, filename):
         drone_to_galaxy()
 
     # Drone landing
-    while step <= 32:
+    while step <= 33:
         placemark_kml(hangar.drone, (lat, lon, altitude), filename + "drone_" + str(step) + ".kml")
         Kml(name="drone_" + str(step) + ".kml", url="static/kml/drone_" + str(step) + ".kml", visibility=True).save()
         altitude -= 25
@@ -259,9 +265,9 @@ def find_drone_path(hangar, droppoint, filename):
         drone_to_galaxy()
 
 def drone_to_galaxy():
-    # sync_kmls_file()
-    # sync_kmls_to_galaxy(emergency=True)
-    time.sleep(1)
+    sync_kmls_file()
+    sync_kmls_to_galaxy(emergency=True)
+    time.sleep(1.5)
 
 def random_color():
     r = lambda: random.randint(0,255)

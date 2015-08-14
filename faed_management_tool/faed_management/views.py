@@ -340,7 +340,7 @@ def create_kml(item, type, action):
         kml_vis.save()
 
     if type == 'hangar':
-        name_influence = kml_generator.hangar_influence(item, path)
+        name_influence = kml_generator.hangar_influence(item, os.path.dirname(__file__) + "/static/kml/" + type + "_" + str(item.id) + "_inf.kml")
         if action == 'create':
             Kml(name=name_influence, url="static/kml/" + name_influence, visibility=item.is_available).save()
         else:
@@ -382,7 +382,7 @@ def find_emergency_path(request):
     data = json.loads(response.text)
 
     try:
-        if data['wind']['speed'] >= MAX_WIND_SPEED:
+        if data['wind']['speed'] >= MAX_WIND_SPEED or bool(data['rain']):
             print data['rain']
             print data['wind']['speed']
             return HttpResponse(status=503)
@@ -424,18 +424,18 @@ def find_emergency_path(request):
 
     kml_generator.create_emergency_marker(lat, lon, path + "incidence.kml")
     Kml(name="incidence.kml", url="static/kml/incidence.kml", visibility=True).save()
-    # sync_kmls_file()
-    # sync_kmls_to_galaxy(emergency=True)
+    sync_kmls_file()
+    sync_kmls_to_galaxy(emergency=True)
     kml_generator.find_drone_path(selected_hangar, selected_droppoint, path)
-
-    for step in range(0, 33, 1):
-        Kml.objects.get(name="drone_" + str(step) + ".kml").delete()
-        os.remove(path + "drone_" + str(step) + ".kml")
 
     Kml.objects.get(name="incidence.kml").delete()
     os.remove(path + "incidence.kml")
 
-    # sync_kmls_file()
-    # sync_kmls_to_galaxy(emergency=True)
+    for step in range(0, 34, 1):
+        Kml.objects.get(name="drone_" + str(step) + ".kml").delete()
+        os.remove(path + "drone_" + str(step) + ".kml")
+
+    sync_kmls_file()
+    sync_kmls_to_galaxy(emergency=True)
 
     return HttpResponse(status=201)

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
-    <Document id="feat_71">
+    <Document id="feat_16">
         <open>1</open>
-        <Placemark id="feat_72">
-            <Style id="stylesel_14">
-                <LineStyle id="substyle_29">
+        <Placemark id="feat_17">
+            <Style id="stylesel_3">
+                <LineStyle id="substyle_7">
                     <color>ff0000ff</color>
                     <colorMode>normal</colorMode>
                     <width>10</width>
                 </LineStyle>
-                <PolyStyle id="substyle_28">
+                <PolyStyle id="substyle_6">
                     <color>22ff0000</color>
                     <colorMode>normal</colorMode>
                     <fill>1</fill>
@@ -17,12 +17,12 @@
                 </PolyStyle>
             </Style>
             <name>Estacio Tren</name>
-            <MultiGeometry id="geom_56">
-                <Polygon id="geom_57">
+            <MultiGeometry id="geom_12">
+                <Polygon id="geom_13">
                     <extrude>5</extrude>
                     <altitudeMode>relativeToGround</altitudeMode>
                     <outerBoundaryIs>
-                        <LinearRing id="geom_59">
+                        <LinearRing id="geom_15">
                             <coordinates>0.63228,41.629444655,5 0.634363864805,41.6293078504,5 0.636384386667,41.6289015953,5 0.638280150396,41.6282382382,5 0.63999353736,41.6273379424,5 0.64147247822,41.626228072,5 0.642672036117,41.6249423596,5 0.643555772047,41.62351988,5 0.644096850961,41.622003862,5 0.644278855107,41.6204403738,5 0.644096280136,41.618876923,5 0.643554699247,41.6173610125,5 0.642670590738,41.6159386976,5 0.641470834595,41.6146531873,5 0.639991893735,41.6135435319,5 0.638278705017,41.6126434381,5 0.636383313867,41.6119802457,5 0.63436329398,41.6115740981,5 0.63228,41.6114373309,5 0.63019670602,41.6115740981,5 0.628176686133,41.6119802457,5 0.626281294983,41.6126434381,5 0.624568106265,41.6135435319,5 0.623089165405,41.6146531873,5 0.621889409262,41.6159386976,5 0.621005300753,41.6173610125,5 0.620463719864,41.618876923,5 0.620281144893,41.6204403738,5 0.620463149039,41.622003862,5 0.621004227953,41.62351988,5 0.621887963883,41.6249423596,5 0.62308752178,41.626228072,5 0.62456646264,41.6273379424,5 0.626279849604,41.6282382382,5 0.628175613333,41.6289015953,5 0.630196135195,41.6293078504,5</coordinates>
                         </LinearRing>
                     </outerBoundaryIs>
