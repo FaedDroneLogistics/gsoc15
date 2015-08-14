@@ -42,7 +42,6 @@ def hangar_per_city(request):
         except KeyError:
             sorted_dict[hangar.city] = [hangar]
 
-    print sorted_dict
     return render(request, 'hangars.html', {'cities':cities, 'hangars_city': sorted_dict})
 
 class MeteoStationsList(ListView):
@@ -67,7 +66,6 @@ def meteostations_per_city(request):
         except KeyError:
             sorted_dict[meteostation.city] = [meteostation]
 
-    print sorted_dict
     return render(request, 'meteostations.html', {'cities':cities, 'meteostations_city': sorted_dict})
 
 class DropPointsList(ListView):
@@ -92,7 +90,6 @@ def droppoint_per_city(request):
         except KeyError:
             sorted_dict[droppoint.city] = [droppoint]
 
-    print sorted_dict
     return render(request, 'droppoints.html', {'cities':cities, 'droppoints_city': sorted_dict})
 # Forms
 
@@ -275,7 +272,6 @@ def edit_hangar(request, id):
             # drone.altitude = altitude
             hangar.drone.save()
             hangar.save()
-            print hangar.name, hangar.id
             create_kml(hangar, "hangar", "edit")
 
             sync_kmls_file()
@@ -321,10 +317,8 @@ def edit_droppoint(request, id):
 
 # Support functions
 def create_kml(item, type, action):
-    # print item.name, item.id
     name = type + "_" + str(item.id) + ".kml"
     path = os.path.dirname(__file__) + "/static/kml/" + name
-    # kml_generator.placemark_kml(item, path)
 
     if type == 'hangar':
         kml_generator.create_hangar_polygon(item, path)
@@ -334,7 +328,6 @@ def create_kml(item, type, action):
     if action == 'create':
         Kml(name=name, url="static/kml/" + name).save()
     else:
-        # print name
         kml_vis = Kml.objects.get(name=name)
         kml_vis.visibility = item.is_available
         kml_vis.save()
@@ -352,16 +345,12 @@ def create_kml(item, type, action):
 def delete_kml(id, type):
     filename = type + "_" + str(id) + ".kml"
     path = os.path.dirname(__file__) + "/static/kml/"
-    # print filename
     for files in os.walk(path):
-        # print files
         if filename in files[2]:
             Kml.objects.get(name=filename).delete()
             os.remove(path + filename)
-            # print path + filename
             if type == 'hangar':
                 filename_inf = type + "_" + str(id) + "_inf.kml"
-                print filename_inf
                 if filename_inf in files[2]:
                     Kml.objects.get(name=filename_inf).delete()
                     os.remove(path + filename_inf)
@@ -414,7 +403,7 @@ def find_emergency_path(request):
             last_distance = distance.m
             selected_hangar = hangar
 
-    print selected_hangar.name, selected_hangar.drone.name, selected_droppoint.name
+    # print selected_hangar.name, selected_hangar.drone.name, selected_droppoint.name
 
     selected_hangar.drone.destination_lat = selected_droppoint.latitude
     selected_hangar.drone.destination_lon = selected_droppoint.longitude
@@ -422,6 +411,12 @@ def find_emergency_path(request):
     if not selected_hangar.is_available:
         return HttpResponse(status=503)
 
+    kml_generator.weather_info(os.path.dirname(__file__) + "/static/kml/meteo_info.kml",
+                               data['main']['temp'], data['main']['temp_max'], data['main']['temp_min'],
+                               data['wind']['speed'], data['clouds']['all'], data['main']['pressure'],
+                               data['main']['humidity'], data['weather'][0]['description'])
+
+    # generate_mission_file(selected_hangar)
     kml_generator.create_emergency_marker(lat, lon, path + "incidence.kml")
     Kml(name="incidence.kml", url="static/kml/incidence.kml", visibility=True).save()
     sync_kmls_file()
@@ -439,3 +434,11 @@ def find_emergency_path(request):
     sync_kmls_to_galaxy(emergency=True)
 
     return HttpResponse(status=201)
+
+def generate_mission_file(hangar):
+    with open("/home/lg/interactivespaces/controller/controller/activities/installed/f04abff8-1bd3-4c9e-8366-8f1b44f05cb5/install", "w") as mission_file:
+        mission_file.write("QGC WPL 110\n"
+                          + "0\t0\t0\t16\t0.000000\t0.000000\t0.000000\t0.000000\t" + str(hangar.longitude) + "\t" + str(hangar.latitude) + "\t" + str(hangar.altitude) + "\t1\n"
+                          + "1\t0\t3\t22\t0.000000\t0.000000\t0.000000\t0.000000\t0.000000\t0.000000\t50.000000\t1\n"
+                          + "2\t0\t3\t16\t0.000000\t0.000000\t0.000000\t0.000000\t" + str(hangar.drone.destination_lon) + "\t" + str(hangar.drone.destination_lat) + "\t" + str(hangar.altitude) + "\t1\n"
+                          + "3\t0\t3\t21\t0.000000\t0.000000\t0.000000\t0.000000\t0.000000\t0.000000\t0.000000\t1\n")

@@ -264,10 +264,45 @@ def find_drone_path(hangar, droppoint, filename):
         step += 1
         drone_to_galaxy()
 
+    time.sleep(5)
+
 def drone_to_galaxy():
     sync_kmls_file()
     sync_kmls_to_galaxy(emergency=True)
     time.sleep(1.5)
+
+def weather_info(filename, temp, temp_max, temp_min, wind, cloud, pressure, humidity, description):
+    with open(filename, "w") as kml_file:
+        kml_file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                       + "<kml xmlns=\"http://www.opengis.net/kml/2.2\"\n"
+                       + "xmlns:gx=\"http://www.google.com/kml/ext/2.2\">\n"
+                       + "\t<Placemark>\n"
+                       + "\t\t<name>Weather Station Lleida</name>\n"
+                       + "\t\t<gx:balloonVisibility>1</gx:balloonVisibility>\n"
+                       + "\t\t<description><![CDATA[\n"
+                       + "\t\t\t<p><font size=5><b>Temperature</b> - " + str(temp) + "C</font></p>\n"
+                       + "\t\t\t<p><font size=5 color=\"blue\"><b>Temperature max. - " + str(temp_max) + "C</b></font></p>\n"
+                       + "\t\t\t<p><font size=5 color=\"red\"><b>Temperature min. - " + str(temp_min) + "</b></font></p>\n"
+                       + "\t\t\t<p><font size=5><b>Wind - " + str(wind) + "m/s</b></font></p>\n"
+                       + "\t\t\t<p><font size=5><b>Clouds - " + str(cloud) + "%</b></font></p>\n"
+                       + "\t\t\t<p><font size=5><b>Pressure - " + str(pressure) + " hpa</b></font></p>\n"
+                       + "\t\t\t<p><font size=5><b>Humidity - " + str(humidity) + "%</b></font></p>\n"
+                       + "\t\t\t<hr>\n"
+                       + "\t\t\tLocation:<br>\n"
+                       + "\t\t\t<p><font size=5><b>Latitude - 41.62</b></font></p>\n"
+                       + "\t\t\t<p><font size=5><b>Longitude - 0.62</b></font></p>\n"
+                       + "\t\t\t<p><font size=5><b>Sky status - " + description + "</b></font></p>\n"
+                       # Avoid scrolling
+                       + "\t\t\t<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>\n"
+                       + "\t\t\t<hr>\n"
+                       + "\t\t\t</br>\n"
+                       + "\t\t\t<font face=arial>Arial</font><br>\n"
+                       + "\t\t]]></description>\n"
+                       + "\t\t<Point>\n"
+                       + "\t\t\t<coordinates>-122.0822035425683,37.42228990140251,0</coordinates>\n"
+                       + "\t\t</Point>\n"
+                       + "\t</Placemark>\n"
+                       + "</kml>")
 
 def random_color():
     r = lambda: random.randint(0,255)

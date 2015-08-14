@@ -33,5 +33,6 @@ def sync_kmls_file():
 
     for i in Kml.objects.filter(visibility=True):
         file.write("http://"+ str(ip_server)[0:(len(ip_server)-1)]+":8000/static/kml/"+i.name+"\n")
+    # file.write("http://"+ str(ip_server)[0:(len(ip_server)-1)]+":8000/static/kml/ex_w.kml\n")
 
     file.close()
