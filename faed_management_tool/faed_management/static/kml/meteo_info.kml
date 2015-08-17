@@ -5,18 +5,18 @@ xmlns:gx="http://www.google.com/kml/ext/2.2">
 		<name>Weather Station Lleida</name>
 		<gx:balloonVisibility>1</gx:balloonVisibility>
 		<description><![CDATA[
-			<p><font size=5><b>Temperature</b> - 27.3C</font></p>
-			<p><font size=5 color="blue"><b>Temperature max. - 30C</b></font></p>
-			<p><font size=5 color="red"><b>Temperature min. - 23.9</b></font></p>
-			<p><font size=5><b>Wind - 7.2m/s</b></font></p>
-			<p><font size=5><b>Clouds - 0%</b></font></p>
-			<p><font size=5><b>Pressure - 1012 hpa</b></font></p>
-			<p><font size=5><b>Humidity - 27%</b></font></p>
+			<p><font size=5><b>Temperature</b> - 25.02C</font></p>
+			<p><font size=5 color="blue"><b>Temperature max. - 25.56C</b></font></p>
+			<p><font size=5 color="red"><b>Temperature min. - 24</b></font></p>
+			<p><font size=5><b>Wind - 4.6m/s</b></font></p>
+			<p><font size=5><b>Clouds - 75%</b></font></p>
+			<p><font size=5><b>Pressure - 1013 hpa</b></font></p>
+			<p><font size=5><b>Humidity - 78%</b></font></p>
 			<hr>
 			Location:<br>
 			<p><font size=5><b>Latitude - 41.62</b></font></p>
 			<p><font size=5><b>Longitude - 0.62</b></font></p>
-			<p><font size=5><b>Sky status - Sky is Clear</b></font></p>
+			<p><font size=5><b>Sky status - broken clouds</b></font></p>
 			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 			<hr>
 			</br>
