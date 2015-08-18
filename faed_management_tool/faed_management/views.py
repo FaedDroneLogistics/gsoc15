@@ -364,19 +364,19 @@ def delete_kml(id, type):
 # Geo functions
 def find_emergency_path(request):
 
-    MAX_WIND_SPEED = 10.0
+    MAX_WIND_SPEED = 20.0
 
     url = 'http://api.openweathermap.org/data/2.5/weather?q=Lleida&units=metric'
     response = requests.get(url=url)
     data = json.loads(response.text)
 
-    try:
-        if data['wind']['speed'] >= MAX_WIND_SPEED or bool(data['rain']):
-            print data['rain']
-            print data['wind']['speed']
-            return HttpResponse(status=503)
-    except KeyError:
-        pass
+    #try:
+    #    if data['wind']['speed'] >= MAX_WIND_SPEED or bool(data['rain']):
+    #        print data['rain']
+    #        print data['wind']['speed']
+    #        return HttpResponse(status=503)
+    #except KeyError:
+    #    pass
 
     lat = request.GET.get('lat', '')
     lon = request.GET.get('lng', '')
@@ -416,7 +416,7 @@ def find_emergency_path(request):
                                data['wind']['speed'], data['clouds']['all'], data['main']['pressure'],
                                data['main']['humidity'], data['weather'][0]['description'])
 
-    # generate_mission_file(selected_hangar)
+    generate_mission_file(selected_hangar)
     kml_generator.create_emergency_marker(lat, lon, path + "incidence.kml")
     Kml(name="incidence.kml", url="static/kml/incidence.kml", visibility=True).save()
     sync_kmls_file()
@@ -436,7 +436,7 @@ def find_emergency_path(request):
     return HttpResponse(status=201)
 
 def generate_mission_file(hangar):
-    with open("/home/lg/interactivespaces/controller/controller/activities/installed/f04abff8-1bd3-4c9e-8366-8f1b44f05cb5/install", "w") as mission_file:
+    with open("/home/lg/interactivespaces/controller/tmp/mission.txt", "w") as mission_file:
         mission_file.write("QGC WPL 110\n"
                           + "0\t0\t0\t16\t0.000000\t0.000000\t0.000000\t0.000000\t" + str(hangar.longitude) + "\t" + str(hangar.latitude) + "\t" + str(hangar.altitude) + "\t1\n"
                           + "1\t0\t3\t22\t0.000000\t0.000000\t0.000000\t0.000000\t0.000000\t0.000000\t50.000000\t1\n"
